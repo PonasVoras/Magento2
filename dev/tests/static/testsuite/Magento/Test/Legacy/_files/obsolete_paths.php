@@ -78,9 +78,9 @@ return [
         '/dev/tests/integration/testsuite/Magento/Framework/Translate'
     ],
     ['/dev/tests/unit/testsuite/Magento/Translate', '/dev/tests/unit/testsuite/Magento/Framework/Translate'],
-    ['/lib/Magento/Code', '/lib/Magento/Framework/Code'],
-    ['/dev/tests/integration/testsuite/Magento/Code', '/dev/tests/integration/testsuite/Magento/Framework/Code'],
-    ['/dev/tests/unit/testsuite/Magento/Code', '/dev/tests/unit/testsuite/Magento/Framework/Code'],
+    ['/lib/Magento/code', '/lib/Magento/Framework/code'],
+    ['/dev/tests/integration/testsuite/Magento/code', '/dev/tests/integration/testsuite/Magento/Framework/code'],
+    ['/dev/tests/unit/testsuite/Magento/code', '/dev/tests/unit/testsuite/Magento/Framework/code'],
     ['/lib/Magento/Stdlib', '/lib/Magento/Framework/Stdlib'],
     ['/dev/tests/integration/testsuite/Magento/Stdlib', '/dev/tests/integration/testsuite/Magento/Framework/Stdlib'],
     ['/dev/tests/unit/testsuite/Magento/Stdlib', '/dev/tests/unit/testsuite/Magento/Framework/Stdlib'],

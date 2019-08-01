@@ -22,7 +22,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 class DbStatusCommand extends AbstractSetupCommand
 {
     /**
-     * Code for error when application upgrade is required.
+     * code for error when application upgrade is required.
      */
     const EXIT_CODE_UPGRADE_REQUIRED = 2;
 

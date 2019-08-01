@@ -58,7 +58,7 @@ class InfoCurrencyListCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $tableHelper = $this->tableHelperFactory->create(['output' => $output]);
-        $tableHelper->setHeaders(['Currency', 'Code']);
+        $tableHelper->setHeaders(['Currency', 'code']);
 
         foreach ($this->lists->getCurrencyList() as $key => $currency) {
             $tableHelper->addRow([$currency, $key]);

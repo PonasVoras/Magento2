@@ -57,7 +57,7 @@ class HtmlTest extends \PHPUnit\Framework\TestCase
     protected function _assertDisplayResultEquals($actualHtml, $expectedHtml)
     {
         $expectedHtml = ltrim(preg_replace('/^<!--.+?-->/s', '', $expectedHtml));
-        if (preg_match('/Code Profiler \(Memory usage: real - (\d+), emalloc - (\d+)\)/', $actualHtml, $matches)) {
+        if (preg_match('/code Profiler \(Memory usage: real - (\d+), emalloc - (\d+)\)/', $actualHtml, $matches)) {
             list(, $realMemory, $emallocMemory) = $matches;
             $expectedHtml = str_replace(
                 ['%real_memory%', '%emalloc_memory%'],

@@ -347,7 +347,7 @@ class ObsoleteCodeTest extends \PHPUnit\Framework\TestCase
     protected function _testGetOptionsSpecialCase($content)
     {
         $this->_assertNotRegexp(
-            '/getOptions\(\)\s*->get(Base|App|Code|Design|Etc|Lib|Locale|Js|Media' .
+            '/getOptions\(\)\s*->get(Base|App|code|Design|Etc|Lib|Locale|Js|Media' .
             '|Var|Tmp|Cache|Log|Session|Upload|Export)?Dir\(/S',
             $content,
             'The class \Magento\Core\Model\Config\Options is obsolete. '

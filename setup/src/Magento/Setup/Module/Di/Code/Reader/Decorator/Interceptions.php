@@ -11,7 +11,7 @@ use Magento\Framework\App\Filesystem\DirectoryList;
 /**
  * Class Interceptions
  *
- * @package Magento\Setup\Module\Di\Code\Reader\Decorator
+ * @package Magento\Setup\Module\Di\code\Reader\Decorator
  */
 class Interceptions implements \Magento\Setup\Module\Di\Code\Reader\ClassesScannerInterface
 {

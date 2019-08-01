@@ -47,7 +47,7 @@ class LiveCodeTest extends \PHPUnit\Framework\TestCase
         $codeSniffer = new CodeSniffer(realpath(__DIR__ . '/_files/lesscs'), $reportFile, $wrapper);
 
         if (!$codeSniffer->canRun()) {
-            $this->markTestSkipped('PHP Code Sniffer is not installed.');
+            $this->markTestSkipped('PHP code Sniffer is not installed.');
         }
 
         $codeSniffer->setExtensions([LessWrapper::LESS_FILE_EXTENSION]);
@@ -60,7 +60,7 @@ class LiveCodeTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals(
             0,
             $result,
-            "PHP Code Sniffer has found {$result} error(s): " . PHP_EOL . $report
+            "PHP code Sniffer has found {$result} error(s): " . PHP_EOL . $report
         );
     }
 

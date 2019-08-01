@@ -240,7 +240,7 @@ class TaxRuleRepositoryInterfaceTest extends WebapiAbstract
         } catch (\Exception $e) {
             $errorObj = $this->processRestExceptionResult($e);
             $this->assertEquals($expectedMessage, $errorObj['message']);
-            $this->assertEquals(['Code'], $errorObj['parameters']);
+            $this->assertEquals(['code'], $errorObj['parameters']);
         }
 
         // Clean up the new tax rule so it won't affect other tests

@@ -12,7 +12,7 @@ use Magento\Mtf\Constraint\AbstractConstraint;
 
 /**
  * Class AssertOrderStatusNotAssigned
- * Assert that order status with status code from fixture have empty "State Code and Title" value
+ * Assert that order status with status code from fixture have empty "State code and Title" value
  */
 class AssertOrderStatusNotAssigned extends AbstractConstraint
 {
@@ -21,7 +21,7 @@ class AssertOrderStatusNotAssigned extends AbstractConstraint
     /* end tags */
 
     /**
-     * Assert that order status with status code from fixture have empty "State Code and Title" value
+     * Assert that order status with status code from fixture have empty "State code and Title" value
      *
      * @param OrderStatus $orderStatus
      * @param OrderStatusIndex $orderStatusIndex
@@ -45,6 +45,6 @@ class AssertOrderStatusNotAssigned extends AbstractConstraint
      */
     public function toString()
     {
-        return 'Order status with status code from fixture have empty "State Code and Title" value.';
+        return 'Order status with status code from fixture have empty "State code and Title" value.';
     }
 }

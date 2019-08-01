@@ -48,7 +48,7 @@ class GeneratorTest extends TestCase
     /**
      * @var string
      */
-    private $testRelativePath = './Magento/Framework/Code/GeneratorTest/';
+    private $testRelativePath = './Magento/Framework/code/GeneratorTest/';
 
     /**
      * @inheritdoc

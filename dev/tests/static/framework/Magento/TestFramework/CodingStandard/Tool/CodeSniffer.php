@@ -9,7 +9,7 @@ use Magento\TestFramework\CodingStandard\Tool\CodeSniffer\Wrapper;
 use Magento\TestFramework\CodingStandard\ToolInterface;
 
 /**
- * PHP Code Sniffer tool wrapper
+ * PHP code Sniffer tool wrapper
  */
 class CodeSniffer implements ToolInterface, ExtensionInterface
 {

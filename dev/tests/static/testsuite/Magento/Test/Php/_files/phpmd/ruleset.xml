@@ -12,7 +12,7 @@
     <description>Magento Code Check Rules</description>
     <php-includepath>../../../../../../framework</php-includepath>
 
-    <!-- Code Size Rules -->
+    <!-- code Size Rules -->
     <rule ref="rulesets/codesize.xml/CyclomaticComplexity" />
     <rule ref="rulesets/codesize.xml/NPathComplexity" />
     <rule ref="rulesets/codesize.xml/ExcessiveMethodLength" />
@@ -28,7 +28,7 @@
     <!-- Unused code rules -->
     <rule ref="rulesets/unusedcode.xml" />
 
-    <!-- Code design rules -->
+    <!-- code design rules -->
     <rule ref="rulesets/design.xml/NumberOfChildren" />
     <rule ref="rulesets/design.xml/DepthOfInheritance">
         <properties>

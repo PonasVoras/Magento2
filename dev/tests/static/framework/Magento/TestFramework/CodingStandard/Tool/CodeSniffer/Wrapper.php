@@ -5,7 +5,7 @@
  */
 
 /**
- * PHP Code Sniffer Cli wrapper
+ * PHP code Sniffer Cli wrapper
  */
 namespace Magento\TestFramework\CodingStandard\Tool\CodeSniffer;
 
@@ -13,7 +13,7 @@ use PHP_CodeSniffer\Config;
 use PHP_CodeSniffer\Runner;
 
 /**
- * PHP Code Sniffer wrapper class
+ * PHP code Sniffer wrapper class
  */
 class Wrapper extends Runner
 {

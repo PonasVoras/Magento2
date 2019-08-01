@@ -15,7 +15,7 @@ use Magento\TestFramework\TestCase\GraphQlAbstract;
 /**
  * Test for setting "UPS" shipping method on cart. Current class covers the next UPS shipping methods:
  *
- * | Code      | Label
+ * | code      | Label
  * --------------------------------------
  * | 1DM       | Next Day Air Early AM
  * | 1DA       | Next Day Air
@@ -30,7 +30,7 @@ use Magento\TestFramework\TestCase\GraphQlAbstract;
  *
  * Current class does not cover these UPS shipping methods (depends on address and sandbox settings)
  *
- * | Code      | Label
+ * | code      | Label
  * --------------------------------------
  * | 1DML      | Next Day Air Early AM Letter
  * | 1DAL      | Next Day Air Letter

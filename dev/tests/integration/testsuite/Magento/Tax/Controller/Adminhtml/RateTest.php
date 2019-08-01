@@ -127,7 +127,7 @@ class RateTest extends \Magento\TestFramework\TestCase\AbstractBackendController
                 ],
                 $expectedData,
             ],
-            // Code is empty
+            // code is empty
             [
                 [
                     'rate' => rand(1, 10000),

@@ -5,7 +5,7 @@
  */
 
 /**
- * PHP Code Mess v1.3.3 tool wrapper
+ * PHP code Mess v1.3.3 tool wrapper
  */
 namespace Magento\TestFramework\CodingStandard\Tool;
 

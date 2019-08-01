@@ -134,7 +134,7 @@ class TaxRateRepositoryTest extends WebapiAbstract
         } catch (\Exception $e) {
             $errorObj = $this->processRestExceptionResult($e);
             $this->assertEquals($expectedMessage, $errorObj['message']);
-            $this->assertEquals(['Code'], $errorObj['parameters']);
+            $this->assertEquals(['code'], $errorObj['parameters']);
         }
     }
 

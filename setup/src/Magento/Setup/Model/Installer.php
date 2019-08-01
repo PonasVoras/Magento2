@@ -768,7 +768,7 @@ class Installer
                 \Magento\Framework\DB\Ddl\Table::TYPE_TEXT,
                 255,
                 ['nullable' => false],
-                'Flag Code'
+                'Flag code'
             )->addColumn(
                 'state',
                 \Magento\Framework\DB\Ddl\Table::TYPE_SMALLINT,

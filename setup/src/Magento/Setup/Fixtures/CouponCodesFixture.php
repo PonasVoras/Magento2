@@ -113,7 +113,7 @@ class CouponCodesFixture extends Fixture
     public function generateCouponCodes($ruleFactory, $couponCodeFactory, $categoriesArray)
     {
         for ($i = 0; $i < $this->couponCodesCount; $i++) {
-            $ruleName = sprintf('Coupon Code %1$d', $i);
+            $ruleName = sprintf('Coupon code %1$d', $i);
             $data = [
                 'rule_id'               => null,
                 'name'                  => $ruleName,

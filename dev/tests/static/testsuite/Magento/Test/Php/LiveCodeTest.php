@@ -276,7 +276,7 @@ class LiveCodeTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals(
             0,
             $result,
-            "PHP Code Sniffer detected {$result} violation(s): " . PHP_EOL . $report
+            "PHP code Sniffer detected {$result} violation(s): " . PHP_EOL . $report
         );
     }
 
@@ -302,7 +302,7 @@ class LiveCodeTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals(
             Command::EXIT_SUCCESS,
             $result,
-            "PHP Code Mess has found error(s):" . PHP_EOL . $output
+            "PHP code Mess has found error(s):" . PHP_EOL . $output
         );
 
         // delete empty reports

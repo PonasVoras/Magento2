@@ -5,7 +5,7 @@
  */
 
 /**
- * Code standard tool wrapper interface
+ * code standard tool wrapper interface
  */
 namespace Magento\TestFramework\CodingStandard;
 

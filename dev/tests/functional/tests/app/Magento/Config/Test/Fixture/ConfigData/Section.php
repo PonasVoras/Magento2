@@ -17,12 +17,12 @@ use Magento\Mtf\Fixture\DataSource;
 class Section extends DataSource
 {
     /**
-     * Code of website.
+     * code of website.
      */
     const WEBSITE_CODE = 'website';
 
     /**
-     * Code of store view.
+     * code of store view.
      */
     const STORE_CODE = 'store';
 

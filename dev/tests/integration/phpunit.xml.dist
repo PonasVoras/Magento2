@@ -25,7 +25,7 @@
             <exclude>testsuite/Magento/MemoryUsageTest.php</exclude>
         </testsuite>
     </testsuites>
-    <!-- Code coverage filters -->
+    <!-- code coverage filters -->
     <filter>
         <whitelist addUncoveredFilesFromWhiteList="true">
             <directory suffix=".php">../../../app/code/Magento</directory>

@@ -218,7 +218,7 @@ class RateRepositoryTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @expectedException \Magento\Framework\Exception\AlreadyExistsException
-     * @expectedExceptionMessage Code already exists.
+     * @expectedExceptionMessage code already exists.
      * @magentoDbIsolation enabled
      */
     public function testSaveThrowsExceptionIfTaxRateWithCorrespondingCodeAlreadyExists()

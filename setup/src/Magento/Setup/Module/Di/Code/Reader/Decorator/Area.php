@@ -12,7 +12,7 @@ use Magento\Framework\Exception\FileSystemException;
 /**
  * Class Area
  *
- * @package Magento\Setup\Module\Di\Code\Reader\Decorator
+ * @package Magento\Setup\Module\Di\code\Reader\Decorator
  */
 class Area implements \Magento\Setup\Module\Di\Code\Reader\ClassesScannerInterface
 {

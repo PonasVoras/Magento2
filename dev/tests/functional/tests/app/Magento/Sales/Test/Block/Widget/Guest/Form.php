@@ -56,7 +56,7 @@ class Form extends \Magento\Mtf\Block\Form
             $data['find_order_by'] = 'Email';
             $data['email_address'] = $searchData['email'];
         } else {
-            $data['find_order_by'] = 'ZIP Code';
+            $data['find_order_by'] = 'ZIP code';
             $data['billing_zip_code'] = $fixture->getDataFieldConfig('billing_address_id')['source']->getPostcode();
         }
 

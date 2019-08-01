@@ -243,7 +243,7 @@ class Shipping extends Form
      */
     public function waitForUpdatedShippingMethods()
     {
-        // Code under test uses JavaScript delay at this point as well.
+        // code under test uses JavaScript delay at this point as well.
         sleep(1);
         $this->waitForElementNotVisible($this->blockWaitElement);
     }

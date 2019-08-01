@@ -11,7 +11,7 @@ use Magento\Mtf\TestStep\TestStepFactory;
 
 /**
  * Steps:
- * 1. Enable 'Add Store Code to Urls'.
+ * 1. Enable 'Add Store code to Urls'.
  * 2. Log out from Admin.
  * 3. Perform all assertions.
  *

@@ -10,7 +10,7 @@ use \Magento\Setup\Module\Di\Code\Reader\Decorator\Area;
 /**
  * Class AreaTest
  *
- * @package Magento\Setup\Module\Di\Code\Reader\Decorator
+ * @package Magento\Setup\Module\Di\code\Reader\Decorator
  */
 class AreaTest extends \PHPUnit\Framework\TestCase
 {

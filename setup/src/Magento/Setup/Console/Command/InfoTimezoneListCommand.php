@@ -58,7 +58,7 @@ class InfoTimezoneListCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $tableHelper = $this->tableHelperFactory->create(['output' => $output]);
-        $tableHelper->setHeaders(['Timezone', 'Code']);
+        $tableHelper->setHeaders(['Timezone', 'code']);
 
         foreach ($this->lists->getTimezoneList() as $key => $timezone) {
             $tableHelper->addRow([$timezone, $key]);

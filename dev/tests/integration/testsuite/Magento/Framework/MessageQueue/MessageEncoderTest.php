@@ -45,7 +45,7 @@ class MessageEncoderTest extends \PHPUnit\Framework\TestCase
         $customer = $customerRepository->getById($fixtureCustomerId);
         /** @var \Magento\Customer\Api\Data\CustomerExtensionInterface $customerExtension */
         $customerExtension = $this->objectManager->create(\Magento\Customer\Api\Data\CustomerExtension::class);
-        $customerExtension->setTestGroupCode('Some Group Code');
+        $customerExtension->setTestGroupCode('Some Group code');
         $customer->setExtensionAttributes($customerExtension);
         $encodedCustomerData = json_decode($this->encoder->encode('customer.created', $customer), true);
         $createdAt = $customer->getCreatedAt();
@@ -66,7 +66,7 @@ class MessageEncoderTest extends \PHPUnit\Framework\TestCase
         $customer = $customerRepository->getById($fixtureCustomerId);
         /** @var \Magento\Customer\Api\Data\CustomerExtensionInterface $customerExtension */
         $customerExtension = $this->objectManager->create(\Magento\Customer\Api\Data\CustomerExtension::class);
-        $customerExtension->setTestGroupCode('Some Group Code');
+        $customerExtension->setTestGroupCode('Some Group code');
         $customer->setExtensionAttributes($customerExtension);
         $encodedCustomerData = json_decode($this->encoder->encode('customer.list.retrieved', [$customer]), true);
         $createdAt = $customer->getCreatedAt();
@@ -88,7 +88,7 @@ class MessageEncoderTest extends \PHPUnit\Framework\TestCase
             \Magento\Customer\Api\Data\CustomerExtensionInterface::class,
             $decodedCustomerObject->getExtensionAttributes()
         );
-        $this->assertEquals('Some Group Code', $decodedCustomerObject->getExtensionAttributes()->getTestGroupCode());
+        $this->assertEquals('Some Group code', $decodedCustomerObject->getExtensionAttributes()->getTestGroupCode());
         $addresses = $decodedCustomerObject->getAddresses();
         $this->assertCount(1, $addresses, "Address was not decoded.");
         $this->assertInstanceOf(
@@ -202,7 +202,7 @@ class MessageEncoderTest extends \PHPUnit\Framework\TestCase
     ],
     "disable_auto_group_change": 0,
     "extension_attributes": {
-        "test_group_code": "Some Group Code"
+        "test_group_code": "Some Group code"
     }
 }
 JSON;

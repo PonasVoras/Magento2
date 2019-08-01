@@ -56,7 +56,7 @@ class Method extends Block
      */
     private function waitForShippingRates()
     {
-        // Code under test uses JavaScript setTimeout at this point as well.
+        // code under test uses JavaScript setTimeout at this point as well.
         sleep(3);
         $this->waitForElementNotVisible($this->blockWaitElement);
     }

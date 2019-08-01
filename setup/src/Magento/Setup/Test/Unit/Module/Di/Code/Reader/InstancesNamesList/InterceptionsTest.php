@@ -10,7 +10,7 @@ use Magento\Setup\Module\Di\Compiler\Log\Log;
 /**
  * Class InterceptionsTest
  *
- * @package Magento\Setup\Module\Di\Code\Reader\Decorator
+ * @package Magento\Setup\Module\Di\code\Reader\Decorator
  */
 class InterceptionsTest extends \PHPUnit\Framework\TestCase
 {

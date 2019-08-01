@@ -84,7 +84,7 @@ class ModuleDBChangeTest extends \PHPUnit\Framework\TestCase
             preg_match_all('|app/code/Magento/[^/]+/Setup/[^/]+$|mi', self::$changedFileList, $matches);
             $this->assertEmpty(
                 reset($matches),
-                'Code with changes for DB schema or data in non-actual branches are not allowed:' . PHP_EOL .
+                'code with changes for DB schema or data in non-actual branches are not allowed:' . PHP_EOL .
                 implode(PHP_EOL, array_values(reset($matches)))
             );
         }

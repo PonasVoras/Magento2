@@ -166,7 +166,7 @@ class GroupRepositoryTest extends WebapiAbstract
     {
         $this->_markTestAsRestOnly();
 
-        $duplicateGroupCode = 'Duplicate Group Code REST';
+        $duplicateGroupCode = 'Duplicate Group code REST';
 
         $group = $this->customerGroupFactory->create();
         $group->setId(null);
@@ -289,7 +289,7 @@ class GroupRepositoryTest extends WebapiAbstract
 
         $groupData = [
             CustomerGroup::ID => null,
-            CustomerGroup::CODE => 'Invalid Tax Class Id Code',
+            CustomerGroup::CODE => 'Invalid Tax Class Id code',
             CustomerGroup::TAX_CLASS_ID => $invalidTaxClassId,
         ];
         $requestData = ['group' => $groupData];
@@ -490,7 +490,7 @@ class GroupRepositoryTest extends WebapiAbstract
     {
         $this->_markTestAsSoapOnly();
         $group = $this->customerGroupFactory->create();
-        $duplicateGroupCode = 'Duplicate Group Code SOAP';
+        $duplicateGroupCode = 'Duplicate Group code SOAP';
 
         $group->setId(null);
         $group->setCode($duplicateGroupCode);

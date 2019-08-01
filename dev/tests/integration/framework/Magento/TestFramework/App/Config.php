@@ -40,7 +40,7 @@ class Config extends \Magento\Framework\App\Config
     }
 
     /**
-     * Retrieve Scope Code Resolver
+     * Retrieve Scope code Resolver
      *
      * @return ScopeCodeResolver
      */

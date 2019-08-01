@@ -124,7 +124,7 @@ class GroupRepositoryTest extends \PHPUnit\Framework\TestCase
         $updates = $this->groupFactory->create()->setId($groupId)->setCode('Updated Group')->setTaxClassId(3);
         $this->assertNotNull($this->groupRepository->save($updates));
         $updatedGroup = $this->groupRepository->getById($groupId);
-        $this->assertEquals($updates->getCode(), $updatedGroup->getCode(), 'Code not updated.');
+        $this->assertEquals($updates->getCode(), $updatedGroup->getCode(), 'code not updated.');
         $this->assertEquals($updates->getTaxClassId(), $updatedGroup->getTaxClassId(), 'Tax Class should not change.');
     }
 

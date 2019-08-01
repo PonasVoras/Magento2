@@ -18,7 +18,7 @@ class InfoLanguageListCommandTest extends \PHPUnit\Framework\TestCase
         ];
 
         $table = $this->createMock(\Symfony\Component\Console\Helper\Table::class);
-        $table->expects($this->once())->method('setHeaders')->with(['Language', 'Code']);
+        $table->expects($this->once())->method('setHeaders')->with(['Language', 'code']);
         $table->expects($this->once())->method('addRow')->with(['Language description', 'LNG']);
 
         /** @var \Symfony\Component\Console\Helper\TableFactory|\PHPUnit_Framework_MockObject_MockObject $helperSet */

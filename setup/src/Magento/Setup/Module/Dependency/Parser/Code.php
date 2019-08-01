@@ -8,7 +8,7 @@ namespace Magento\Setup\Module\Dependency\Parser;
 use Magento\Setup\Module\Dependency\ParserInterface;
 
 /**
- * Code parser
+ * code parser
  */
 class Code implements ParserInterface
 {

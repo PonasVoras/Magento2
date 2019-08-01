@@ -10,7 +10,7 @@ class WrapperTest extends \PHPUnit\Framework\TestCase
     public function testSetValues()
     {
         if (!class_exists('\PHP_CodeSniffer\Runner')) {
-            $this->markTestSkipped('Code Sniffer is not installed');
+            $this->markTestSkipped('code Sniffer is not installed');
         }
         $wrapper = new Wrapper();
         $expected = ['some_key' => 'some_value'];

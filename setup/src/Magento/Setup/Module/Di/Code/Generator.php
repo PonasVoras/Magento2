@@ -13,7 +13,7 @@ use Magento\Framework\ObjectManagerInterface;
 
 /**
  * Class Generator
- * @package Magento\Setup\Module\Di\Code
+ * @package Magento\Setup\Module\Di\code
  */
 class Generator extends FrameworkGenerator
 {
