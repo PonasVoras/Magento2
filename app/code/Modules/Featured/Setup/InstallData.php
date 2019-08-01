@@ -23,6 +23,7 @@ class InstallData implements InstallDataInterface
             \Magento\Catalog\Model\Product::ENTITY,
             'Featured_attribute',
             [
+                'group' => 'General',
                 'type' => 'int',
                 'backend' => '',
                 'frontend' => '',
