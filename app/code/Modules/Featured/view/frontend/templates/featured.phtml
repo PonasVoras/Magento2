@@ -1,9 +1,12 @@
+
 <h1><?php echo $this->getFeatured(); ?></h1>
 
 <?php
 $productCollection = $block->getProductCollection();
 foreach ($productCollection as $product) {
-print_r($product->getData());
-echo "<br>";
+    print_r($product->getData());
+    echo "<br>";
 }
 ?>
+
+

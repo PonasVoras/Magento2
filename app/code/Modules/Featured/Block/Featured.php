@@ -1,6 +1,6 @@
 <?php
-namespace Modules\Featured\Block;
 
+namespace Modules\Featured\Block;
 class Featured extends \Magento\Framework\View\Element\Template
 {
     protected $_productCollectionFactory;
