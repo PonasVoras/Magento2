@@ -4,13 +4,7 @@ namespace Modules\Featured\Block;
 
 use Magento\Catalog\Block\Product\AbstractProduct;
 use Magento\Catalog\Block\Product\Context;
-use Magento\Catalog\Model\Product;
-use Magento\Catalog\Model\Product\Visibility;
 use Magento\Catalog\Model\ResourceModel\Product\CollectionFactory;
-use Magento\Framework\App\Action\Action;
-use Magento\Framework\Registry;
-use Magento\Framework\Url\Helper\Data;
-use \Magento\Framework\View\Element\Template;
 use Psr\Log\LoggerInterface;
 
 class Featured extends AbstractProduct
