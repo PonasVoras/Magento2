@@ -1,25 +1,43 @@
 <?php
 
 namespace Modules\Featured\Block;
-class Featured extends \Magento\Framework\View\Element\Template
+
+use Magento\Catalog\Block\Product\AbstractProduct;
+use Magento\Catalog\Block\Product\Context;
+use Magento\Catalog\Model\Product;
+use Magento\Catalog\Model\Product\Visibility;
+use Magento\Catalog\Model\ResourceModel\Product\CollectionFactory;
+use Magento\Framework\App\Action\Action;
+use Magento\Framework\Registry;
+use Magento\Framework\Url\Helper\Data;
+use \Magento\Framework\View\Element\Template;
+use Psr\Log\LoggerInterface;
+
+class Featured extends AbstractProduct
 {
     protected $_productCollectionFactory;
+    private $logger;
 
     public function __construct(
-        \Magento\Backend\Block\Template\Context $context,
-        \Magento\Catalog\Model\ResourceModel\Product\CollectionFactory $productCollectionFactory,
+        Context $context,
+        CollectionFactory $productCollectionFactory,
+        LoggerInterface $logger,
         array $data = []
     )
     {
         $this->_productCollectionFactory = $productCollectionFactory;
+        $this->logger = $logger;
         parent::__construct($context, $data);
     }
 
     public function getProductCollection()
     {
-        $collection = $this->_productCollectionFactory->create();
-        $collection->addAttributeToSelect('Featured_attribute', '1');
-        $collection->setPageSize(3); // fetching only 3 products
+        $collection = $this->_productCollectionFactory->create()
+            ->addAttributeToFilter('status', '1')
+            ->addAttributeToFilter('Featured_attribute', '1');
+        $collection = $this->_addProductAttributesAndPrices($collection)
+            ->setPageSize(3)
+            ->setCurPage(1);
         return $collection;
     }
 

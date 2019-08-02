@@ -1,12 +1,82 @@
-
-<h1><?php echo $this->getFeatured(); ?></h1>
-
 <?php
-$productCollection = $block->getProductCollection();
-foreach ($productCollection as $product) {
-    print_r($product->getData());
-    echo "<br>";
-}
+$collection = $block->getProductCollection();
+$helper = $this->helper('Magento\Catalog\Helper\Output');
+$imageBlock = $block->getLayout()->createBlock('Magento\Catalog\Block\Product\Image');
+$viewMode = 'grid';
+$image = 'category_page_grid';
+$showDescription = false;
+$templateType = \Magento\Catalog\Block\Product\ReviewRendererInterface::FULL_VIEW;
+$pos = $block->getPositioned();
+$position = '';
 ?>
-
-
+<div class="block widget block-products-list grid">
+    <div class="block-content">
+        <?php if ($collection->count()): ?>
+            <div class="<?php echo $viewMode; ?> products-<?php echo $viewMode; ?>">
+                <?php $iterator = 1;
+                $lineCount = 1; ?>
+                <ol class="product-items widget-product-<?php echo $viewMode; ?>">
+                    <?php /** @var $product \Magento\Catalog\Model\Product */ ?>
+                    <?php foreach ($collection as $product): ?>
+                        <?php
+                        echo ($iterator++ == 1) ?
+                            '<li class="product-item">' :
+                            '</li><li class="product-item">';
+                        ?>
+                        <div class="product-item-info" data-container="product-grid">
+                            <?php
+                            $productImage = $block->getImage($product, $image);
+                            if ($pos !== null) {
+                                $position =
+                                    ' style="left:' . $productImage->getWidth() . 'px;' .
+                                    'top:' . $productImage->getHeight() . 'px';
+                            }
+                            ?>
+                            <a href="<?php /** @escapeNotVerified */
+                            echo $product->getProductUrl() ?>"
+                               class="product photo product-item-photo" tabindex="-1">
+                                <?php echo $productImage->toHtml(); ?>
+                            </a>
+                            <div class="product details product-item-details">
+                                <?php
+                                $productNameStripped = $block->stripTags($product->getName(), null, true);
+                                ?>
+                                <strong class="product name product-item-name">
+                                    <a class="product-item-link"
+                                       href="<?php /* @escapeNotVerified */
+                                       echo $product->getProductUrl() ?>">
+                                        <?php
+                                        /* @escapeNotVerified */
+                                        echo $helper->productAttribute($product, $product->getName(), 'name');
+                                        ?>
+                                    </a>
+                                </strong>
+                                <?php
+                                echo $block->getReviewsSummaryHtml($product, $templateType);
+                                /* @escapeNotVerified */
+                                echo $block->getProductPrice($product);
+                                echo $block->getProductDetailsHtml($product);
+                                ?>
+                                <div class="product-item-inner">
+                                    <div class="product actions product-item-actions"
+                                        <?php if ($showDescription): ?>
+                                            <div class="product description product-item-description">
+                                                <?php echo $helper->productAttribute($product,
+                                                    $product->getShortDescription(),
+                                                    'short_description') ?>
+                                                <a href="<?php echo $product->getProductUrl() ?>"
+                                                   title="<?php echo $productNameStripped ?>"
+                                                   class="action more"><?php echo __('Learn More') ?></a>
+                                            </div>
+                                        <?php endif; ?>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <?php echo ($iterator == count($collection) + 1) ? '</li>' : '' ?>
+                    <?php endforeach; ?>
+                </ol>
+            </div>
+        <?php endif; ?>
+    </div>
+</div>
