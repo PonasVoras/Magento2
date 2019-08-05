@@ -1,0 +1,46 @@
+<?php
+$helper = $this->helper('Modules\Popup\Helper\Data');
+$time = $helper->getGeneralConfig('time');
+$enabled = $helper->getGeneralConfig('enable');
+$title = $helper->getGeneralConfig('title');
+?>
+
+<?php if ($enabled ): ?>
+<div id="custom-popup-modal">
+    <p><?php echo $title ?></p>
+</div>
+
+<script>
+require(
+    [
+        'jquery',
+        'Magento_Ui/js/modal/modal'
+    ],
+    function(
+        $,
+        modal
+    ) {
+        let time = <?php echo $time ?>;
+        var options = {
+            type: 'popup',
+            responsive: true,
+            innerScroll: true,
+            modalClass: 'custom-popup-modal',
+            buttons: [{
+                text: $.mage.__('Close'),
+                class: '',
+                click: function () {
+                    this.closeModal();
+                }
+            }]
+        };
+
+        var popup = modal(options, $('#custom-popup-modal'));
+
+        $( document ).ready(function() {
+            $('#custom-popup-modal').modal('openModal');
+        });
+    }
+);
+</script>
+<?php endif; ?>
