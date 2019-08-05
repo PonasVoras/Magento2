@@ -10,7 +10,7 @@ use Magento\Framework\Setup\ModuleContextInterface;
 use Magento\Framework\Setup\ModuleDataSetupInterface;
 
 /**
- * Class InstallData
+ * Class InstallPromoPrice
  * @package Magento\TestSetupDeclarationModule3\Setup
  */
 class InstallData implements InstallDataInterface

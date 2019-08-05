@@ -10,7 +10,7 @@ use Magento\Framework\Setup\ModuleDataSetupInterface;
 use Magento\Framework\Setup\UpgradeDataInterface;
 
 /**
- * Class InstallData
+ * Class InstallPromoPrice
  * @package Magento\TestSetupDeclarationModule3\Setup
  */
 class UpgradeData implements UpgradeDataInterface

@@ -233,6 +233,7 @@ return [
         'MSP_TwoFactorAuth' => 1,
         'Modules_Featured' => 1,
         'Modules_Popup' => 1,
+        'Modules_Promo' => 1,
         'Temando_Shipping' => 1,
         'Vertex_Tax' => 1
     ]

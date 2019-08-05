@@ -11,7 +11,7 @@ use Magento\Framework\Setup\Patch\PatchRevertableInterface;
 use Magento\Framework\Setup\Patch\PatchVersionInterface;
 
 /**
- * Class InstallData
+ * Class InstallPromoPrice
  * @package Magento\TestSetupDeclarationModule3\Setup
  */
 class IncrementalSomeIntegerPatch implements

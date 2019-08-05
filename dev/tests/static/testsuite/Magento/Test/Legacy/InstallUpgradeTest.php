@@ -43,15 +43,15 @@ class InstallUpgradeTest extends \PHPUnit\Framework\TestCase
                     . 'Please use declarative schema approach in module\'s etc/db_schema.xml file'
                 );
                 $this->assertStringStartsNotWith(
-                    'InstallData',
+                    'InstallPromoPrice',
                     basename($file),
-                    'InstallData objects are obsolete. '
+                    'InstallPromoPrice objects are obsolete. '
                     . 'Please use data patches approach in module\'s Setup/Patch/Data dir'
                 );
                 $this->assertStringStartsNotWith(
                     'data-install-',
                     basename($file),
-                    'Install scripts are obsolete. Please create class InstallData in module\'s Setup folder'
+                    'Install scripts are obsolete. Please create class InstallPromoPrice in module\'s Setup folder'
                 );
                 $this->assertStringStartsNotWith(
                     'upgrade-',

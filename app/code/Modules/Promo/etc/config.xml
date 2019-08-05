@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <promo>
+            <general>
+                <enable>1</enable>
+                <title>Promo Products</title>
+                <price>1</price>
+                <time>Time</time>
+                <textColor>1</textColor>
+                <backgroundColor>1</backgroundColor>
+            </general>
+        </promo>
+    </default>
+</config>
