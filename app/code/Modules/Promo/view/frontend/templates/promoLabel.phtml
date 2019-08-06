@@ -5,8 +5,7 @@
  */
 ?>
 
-<?php if ($block->checkAdminPromotion() & $block->checkItemPromotion()): ?>
-
+<?php if ($block->checkPromotion() ): ?>
     <div class="promo button"
          style="padding: 1em;
                  font-size: 2em;
@@ -21,7 +20,5 @@
         <p>
             <?php echo $block->getLabelText() ?>
         </p>
-
-
     </div>
 <?php endif ?>
