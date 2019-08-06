@@ -2,8 +2,12 @@
 <page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
       xsi:noNamespaceSchemaLocation="urn:magento:module:View/Layout:etc/page_configuration.xsd">
     <body>
-        <referenceContainer name="main">
-            <block class = "Modules\Promo\Block\Promo" template = "promo.phtml"/>
+        <block class="Modules\Promo\Block\PromoLabel" template="promoLabel.phtml"/>
+        <referenceContainer name="product.info.main">
+            <block class="Modules\Promo\Block\PromoLabel" name="product.label"
+                   before="product.info.price"
+                   template="promoLabel.phtml">
+            </block>
         </referenceContainer>
     </body>
 </page>

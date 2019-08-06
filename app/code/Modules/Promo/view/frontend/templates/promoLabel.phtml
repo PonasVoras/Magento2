@@ -1,0 +1,27 @@
+<?php
+
+/**
+ * @var Modules\Promo\Block\PromoLabel $block
+ */
+?>
+
+<?php if ($block->checkAdminPromotion() & $block->checkItemPromotion()): ?>
+
+    <div class="promo button"
+         style="padding: 1em;
+                 font-size: 2em;
+                 font-weight: bold;
+                 border-radius: 15%;
+                 background-color: <?php echo $block->getLabelBackgroundColor() ?>;
+                 ">
+        <br>
+        <h5 style="color: <?php echo $block->getLabelTextColor() ?>;">
+            <?php echo $block->getTimeLeft() ?>
+        </h5>
+        <p>
+            <?php echo $block->getLabelText() ?>
+        </p>
+
+
+    </div>
+<?php endif ?>

@@ -1,6 +1,6 @@
 <?php
 
-namespace Modules\Popup\Helper;
+namespace Modules\Promo\Helper;
 
 use Magento\Framework\App\Helper\AbstractHelper;
 use Magento\Store\Model\ScopeInterface;
