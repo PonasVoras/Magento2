@@ -5,49 +5,45 @@
 
 ?>
 
-<?php //if ($block->popupEnabled()): ?>
+<?php if ($block->popupEnabled()): ?>
     <div id="custom-popup-modal">
+
     </div>
 
-    <button id="click-me">MYGTUKAS</button>
-
+    <button id="click-me">Popup button</button>
     <script>
-require(
-    [
-        'jquery',
-        'Magento_Ui/js/modal/modal'
-    ],
-    function(
-        $,
-        modal
-    ) {
-        let delay = '<?php echo $block->getDelay() ?>';
-        let title = '<?php echo $block->getTitle() ?>';
-        let content = '<?php echo $block->getContent() ?>'
-        var options = {
-            type: 'popup',
-            responsive: true,
-            innerScroll: true,
-            title : title,
-            content : content,
-            modalClass: 'custom-popup-modal',
-            buttons: [{
-                text: $.mage.__('Close'),
-                class: '',
-                click: function () {
-                    this.closeModal();
-                }
-            }]
-        };
+        require(
+            [
+                'jquery',
+                'Magento_Ui/js/modal/modal'
+            ],
+            function(
+                $,
+                modal
+            ) {
+                let title = '<?php echo $block->getTitle() ?>';
+                var options = {
+                    type: 'popup',
+                    responsive: true,
+                    innerScroll: true,
+                    title : title,
+                    modalClass: 'custom-popup-modal',
+                    buttons: [{
+                        text: $.mage.__('Close'),
+                        class: '',
+                        click: function () {
+                            this.closeModal();
+                        }
+                    }]
+                };
 
-        var popup = modal(options, $('#custom-popup-modal'));
-        $("#click-me").on('click',function(){
-                $("#custom-popup-modal").modal("openModal");
-            });
-    }
-);
-
+                var popup = modal(options, $('#custom-popup-modal'));
+                $("#click-me").on('click',function(){
+                        $("#custom-popup-modal").modal("openModal");
+                    });
+            }
+        );
     </script>
-<?php //endif; ?>
+<?php endif; ?>
 
 

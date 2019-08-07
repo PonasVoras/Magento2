@@ -57,7 +57,7 @@ class InstallData implements InstallDataInterface
                 'label' => 'Popup content',
                 'input' => 'select',
                 'class' => '',
-                'source' => '',
+                'source' => 'Modules\Button\Model\Config\Source\Options',
                 'global' => ScopedAttributeInterface::SCOPE_GLOBAL,
                 'visible' => true,
                 'required' => false,
