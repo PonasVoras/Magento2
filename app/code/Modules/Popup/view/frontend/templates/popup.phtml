@@ -1,16 +1,15 @@
 <?php
-$helper = $this->helper('Modules\Popup\Helper\Data');
-$time = $helper->getGeneralConfig('time');
-$enabled = $helper->getGeneralConfig('enable');
-$title = $helper->getGeneralConfig('title');
+/**
+ * @var Modules\Popup\Block\Popup $block
+ */
 ?>
 
-<?php if ($enabled ): ?>
-<div id="custom-popup-modal">
-    <p><?php echo $title ?></p>
-</div>
+<?php if ($block->popupEnabled()): ?>
+    <div id="custom-popup-modal">
 
-<script>
+    </div>
+
+    <script>
 require(
     [
         'jquery',
@@ -20,11 +19,14 @@ require(
         $,
         modal
     ) {
-        let time = <?php echo $time ?>;
+        let delay = '<?php echo $block->getDelay() ?>';
+        let title = '<?php echo $block->getTitle() ?>';
+        setTimeout(() => {
         var options = {
             type: 'popup',
             responsive: true,
             innerScroll: true,
+            title : title,
             modalClass: 'custom-popup-modal',
             buttons: [{
                 text: $.mage.__('Close'),
@@ -36,11 +38,12 @@ require(
         };
 
         var popup = modal(options, $('#custom-popup-modal'));
-
-        $( document ).ready(function() {
-            $('#custom-popup-modal').modal('openModal');
-        });
+                    $('#custom-popup-modal').modal('openModal');
+                }, delay * 1000);
     }
 );
-</script>
+
+    </script>
 <?php endif; ?>
+
+

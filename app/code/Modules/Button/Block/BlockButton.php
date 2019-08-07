@@ -2,8 +2,7 @@
 
 use Magento\Catalog\Model\Product;
 use Magento\Framework\View\Element\Template;
-use Magento\Framework\View\Element\Template\Context;
-use Magento\Tests\NamingConvention\true\string;
+use Modules\Popup\Helper\Data;
 
 class BlockButton extends Template
 {
@@ -12,7 +11,7 @@ class BlockButton extends Template
 
     public function __construct(
         Product $product,
-        Context $context,
+        Template\Context $context,
         Data $helper)
     {
         $this->product = $product;
@@ -20,11 +19,4 @@ class BlockButton extends Template
         parent::__construct($context);
     }
 
-    /**
-     * @return string|null
-     */
-    public function sayHello(): ?string
-    {
-        return ('Hello World');
-    }
 }

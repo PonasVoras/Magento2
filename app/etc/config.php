@@ -231,6 +231,7 @@ return [
         'Klarna_Kp' => 1,
         'Magento_PaypalReCaptcha' => 1,
         'MSP_TwoFactorAuth' => 1,
+        'Modules_Button' => 1,
         'Modules_Featured' => 1,
         'Modules_Popup' => 1,
         'Modules_Promo' => 1,
