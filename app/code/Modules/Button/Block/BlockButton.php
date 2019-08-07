@@ -12,11 +12,25 @@ class BlockButton extends Template
     public function __construct(
         Product $product,
         Template\Context $context,
-        Data $helper)
+        Data $helper
+    )
     {
         $this->product = $product;
         $this->helper = $helper;
         parent::__construct($context);
     }
 
+    public function getDelay()
+    {
+    }
+
+    public function getTitle()
+    {
+
+    }
+
+    public function getContent()
+    {
+
+    }
 }

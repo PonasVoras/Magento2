@@ -5,9 +5,11 @@
 
 ?>
 
-<?php if ($block->popupEnabled()): ?>
+<?php //if ($block->popupEnabled()): ?>
     <div id="custom-popup-modal">
     </div>
+
+    <button id="click-me">MYGTUKAS</button>
 
     <script>
 require(
@@ -22,7 +24,6 @@ require(
         let delay = '<?php echo $block->getDelay() ?>';
         let title = '<?php echo $block->getTitle() ?>';
         let content = '<?php echo $block->getContent() ?>'
-        setTimeout(() => {
         var options = {
             type: 'popup',
             responsive: true,
@@ -40,12 +41,13 @@ require(
         };
 
         var popup = modal(options, $('#custom-popup-modal'));
-                    $('#custom-popup-modal').modal('openModal');
-                }, delay * 1000);
+        $("#click-me").on('click',function(){
+                $("#custom-popup-modal").modal("openModal");
+            });
     }
 );
 
     </script>
-<?php endif; ?>
+<?php //endif; ?>
 
 

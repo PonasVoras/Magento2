@@ -55,7 +55,7 @@ class InstallData implements InstallDataInterface
                 'backend' => '',
                 'frontend' => '',
                 'label' => 'Popup content',
-                'input' => 'price',
+                'input' => 'select',
                 'class' => '',
                 'source' => '',
                 'global' => ScopedAttributeInterface::SCOPE_GLOBAL,

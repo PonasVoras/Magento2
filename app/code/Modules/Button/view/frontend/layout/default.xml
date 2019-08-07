@@ -2,11 +2,11 @@
 <page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
       xsi:noNamespaceSchemaLocation="urn:magento:module:View/Layout:etc/page_configuration.xsd">
     <body>
-        <block class="Modules\Promo\Block\PromoLabel" template="promoLabel.phtml"/>
+<!--        <block class="Modules\Button\Block\ButtonBlock" template="button.phtml"/>-->
         <referenceContainer name="product.info.main">
-            <block class="Modules\Promo\Block\PromoLabel" name="product.label"
-                   before="product.info.price"
-                   template="promoLabel.phtml">
+            <block class="Modules\Button\Block\BlockButton" name="product.button"
+                   after="product.info.price"
+                   template="button.phtml">
             </block>
         </referenceContainer>
     </body>
