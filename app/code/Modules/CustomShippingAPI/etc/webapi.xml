@@ -1,0 +1,6 @@
+<route url="/V1/customers" method="GET">
+    <service class="Magento\Customer\Api\AccountManagementInterface" method="createAccount"/>
+    <resources>
+        <resource ref="anonymous"/>
+    </resources>
+</route>

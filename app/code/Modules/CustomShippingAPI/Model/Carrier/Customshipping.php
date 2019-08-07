@@ -64,7 +64,7 @@ class Customshipping extends AbstractCarrier implements CarrierInterface
         if (!$this->getConfigFlag('active')) {
             return false;
         }
-
+        $countryId= $request->getDestCountryId();
         /** @var \Magento\Shipping\Model\Rate\Result $result */
         $result = $this->rateResultFactory->create();
 
@@ -75,7 +75,8 @@ class Customshipping extends AbstractCarrier implements CarrierInterface
         $method->setCarrierTitle($this->getConfigData('title'));
 
         $method->setMethod($this->_code);
-        $method->setMethodTitle("Slim shady");
+        $method->setMethodTitle($request->getDestCountryId());
+
 
         $shippingCost = 4.20;
 
