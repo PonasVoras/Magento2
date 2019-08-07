@@ -1,0 +1,51 @@
+<?php
+/**
+ * @var Modules\Button\Block\BlockButton $block
+ */
+
+?>
+
+<?php if ($block->popupEnabled()): ?>
+    <div id="custom-popup-modal">
+    </div>
+
+    <script>
+require(
+    [
+        'jquery',
+        'Magento_Ui/js/modal/modal'
+    ],
+    function(
+        $,
+        modal
+    ) {
+        let delay = '<?php echo $block->getDelay() ?>';
+        let title = '<?php echo $block->getTitle() ?>';
+        let content = '<?php echo $block->getContent() ?>'
+        setTimeout(() => {
+        var options = {
+            type: 'popup',
+            responsive: true,
+            innerScroll: true,
+            title : title,
+            content : content,
+            modalClass: 'custom-popup-modal',
+            buttons: [{
+                text: $.mage.__('Close'),
+                class: '',
+                click: function () {
+                    this.closeModal();
+                }
+            }]
+        };
+
+        var popup = modal(options, $('#custom-popup-modal'));
+                    $('#custom-popup-modal').modal('openModal');
+                }, delay * 1000);
+    }
+);
+
+    </script>
+<?php endif; ?>
+
+
