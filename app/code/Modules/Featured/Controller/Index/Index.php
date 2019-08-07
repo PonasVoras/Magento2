@@ -29,7 +29,7 @@ class Index extends Action
      * Note: Request will be added as operation argument in future
      *
      * @return ResultInterface|ResponseInterface
-     * @throws \Magento\Framework\Exception\NotFoundException
+     * @throws Magento\Framework\Exception\NotFoundException
      */
     public function execute()
     {

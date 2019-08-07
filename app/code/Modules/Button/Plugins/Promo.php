@@ -2,13 +2,8 @@
 
 use Magento\Catalog\Model\Product;
 
-class Promo
+class Button
 {
-    /**
-     * @param Product $product
-     * @param $price
-     * @return mixed
-     */
     public function aftergetPrice(Product $product, $price)
     {
         if (!$product->getData('PromoEnable_attribute')) {

@@ -1,6 +1,4 @@
-<?php
-
-namespace Modules\Popup\Helper;
+<?php namespace Modules\Popup\Helper;
 
 use Magento\Framework\App\Helper\AbstractHelper;
 use Magento\Store\Model\ScopeInterface;

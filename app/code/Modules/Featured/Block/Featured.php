@@ -1,6 +1,4 @@
-<?php
-
-namespace Modules\Featured\Block;
+<?php namespace Modules\Featured\Block;
 
 use Magento\Catalog\Block\Product\AbstractProduct;
 use Magento\Catalog\Block\Product\Context;
