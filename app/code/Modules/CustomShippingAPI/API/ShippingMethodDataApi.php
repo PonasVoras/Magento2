@@ -5,7 +5,7 @@ use Zend\Http\Client;
 use Zend\Http\Headers;
 use Zend\Http\Request;
 
-class ApiCall
+class ShippingMethodDataApi
 {
     private $token;
     private $URI_API = 'https://5d317bb345e2b00014d93f1c.mockapi.io';
