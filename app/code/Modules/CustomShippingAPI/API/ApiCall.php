@@ -8,23 +8,22 @@ use Zend\Http\Request;
 class ApiCall
 {
     private $token;
-    private const URI_API = 'https://5d317bb345e2b00014d93f1c.mockapi.io';
+    private $URI_API = 'https://5d317bb345e2b00014d93f1c.mockapi.io';
     private const USER_ID = 658764298;
 
     private $logger;
-    private $shippingData ='';
+    private $shippingData = '';
 
     public function __construct(
         LoggerInterface $logger
     )
     {
         $this->logger = $logger;
-        $this->logger->info('API has been initiated');
     }
 
     public function getHeaders()
     {
-        $httpHeaders = new Headers;
+        $httpHeaders = new Headers();
         $httpHeaders->addHeaders([
             'Accept' => 'application/json',
             'Content-Type' => 'application/json'
@@ -36,7 +35,7 @@ class ApiCall
     {
         $request = new Request();
         $request->setHeaders($this->getHeaders());
-        $request->setUri(self::URI_API . $uri);
+        $request->setUri($this->URI_API . $uri);
         $response = $this->getResponse($request);
         return $response;
     }
@@ -51,7 +50,6 @@ class ApiCall
         ];
         $client->setOptions($options);
         $response = $client->send($request);
-        //$this->logger->info($response);
         return $response->getBody();
     }
 
@@ -79,21 +77,24 @@ class ApiCall
     public function getShippingMethod(string $countryId)
     {
         $responseJson = $this->getShippingDataJson($countryId);
-        $shippingMethod = json_decode($responseJson, true)['methodName'];
+        $shippingMethod = empty($shippingMethod) ?
+            "Not available" : json_decode($responseJson, true)['methodName'];
         return $shippingMethod;
     }
 
     public function getShippingPrice(string $countryId)
     {
         $responseJson = $this->getShippingDataJson($countryId);
-        $shippingPrice = json_decode($responseJson, true)['price'];
+        $shippingPrice = empty($shippingPrice) ?
+            "0.0" : json_decode($responseJson, true)['price'];
         return $shippingPrice;
     }
 
     public function getShippingCarrierName(string $countryId)
     {
         $responseJson = $this->getShippingDataJson($countryId);
-        $shippingCarrierName = json_decode($responseJson, true)['carierName'];
+        $shippingCarrierName = empty($shippingCarrierName) ?
+            "Not available" : json_decode($responseJson, true)['carierName'];
         return $shippingCarrierName;
     }
 }

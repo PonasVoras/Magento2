@@ -12,19 +12,12 @@
                     <label>Enabled</label>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
                 </field>
-                <field id="title" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1"
+
+                <field id="uri" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1"
                        showInStore="0">
-                    <label>Title</label>
+                    <label>URI</label>
                 </field>
-                <field id="name" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1"
-                       showInStore="0">
-                    <label>Method Name</label>
-                </field>
-                <field id="shipping_cost" translate="label" type="text" sortOrder="40" showInDefault="1"
-                       showInWebsite="1" showInStore="0">
-                    <label>Shipping Cost</label>
-                    <validate>validate-number validate-zero-or-greater</validate>
-                </field>
+
                 <field id="sallowspecific" translate="label" type="select" sortOrder="60" showInDefault="1"
                        showInWebsite="1" showInStore="0" canRestore="1">
                     <label>Ship to Applicable Countries</label>

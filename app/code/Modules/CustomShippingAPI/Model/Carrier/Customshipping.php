@@ -4,7 +4,6 @@ use Magento\Quote\Model\Quote\Address\RateRequest;
 use Magento\Shipping\Model\Carrier\AbstractCarrier;
 use Magento\Shipping\Model\Carrier\CarrierInterface;
 use Modules\CustomShippingAPI\API\ApiCall;
-use Psr\Log\LoggerInterface;
 
 /**
  * Custom shipping model
@@ -70,6 +69,7 @@ class Customshipping extends AbstractCarrier implements CarrierInterface
             return false;
         }
         $countryId = $request->getDestCountryId();
+
         /** @var \Magento\Shipping\Model\Rate\Result $result */
         $result = $this->rateResultFactory->create();
 
@@ -78,14 +78,13 @@ class Customshipping extends AbstractCarrier implements CarrierInterface
 
         $method->setCarrier($this->_code);
         $method->setCarrierTitle(
-            $this->apiCall->getShippingCarrierName('LT')
+            $this->apiCall->getShippingCarrierName($countryId)
         );
 
         $method->setMethod($this->_code);
-        $method->setMethodTitle($this->apiCall->getShippingMethod('LT'));
+        $method->setMethodTitle($this->apiCall->getShippingMethod($countryId));
 
-        $shippingCost = $this->apiCall->getShippingPrice('LT');
-        //$shippingCost = 4.20;
+        $shippingCost = $this->apiCall->getShippingPrice($countryId);
 
         $method->setPrice($shippingCost);
         $method->setCost($shippingCost);
