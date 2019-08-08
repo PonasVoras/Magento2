@@ -5,7 +5,6 @@ use Magento\Store\Model\ScopeInterface;
 
 class Data extends AbstractHelper
 {
-
     const XML_PATH_POPUP = 'popup/';
 
     public function getConfigValue($field, $storeId = null)
@@ -19,8 +18,6 @@ class Data extends AbstractHelper
 
     public function getGeneralConfig($code, $storeId = null)
     {
-
         return $this->getConfigValue(self::XML_PATH_POPUP . 'general/' . $code, $storeId);
     }
-
 }

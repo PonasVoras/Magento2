@@ -3,6 +3,7 @@
 use Modules\CustomShippingAPI\API\Intrefaces\SimpleApiInterface;
 use Psr\Log\LoggerInterface;
 use Zend\Http\Client;
+use Zend\Http\Client\Adapter\Curl;
 use Zend\Http\Headers;
 use Zend\Http\Request;
 
@@ -10,7 +11,6 @@ class CurrencyCodeApi implements SimpleApiInterface
 {
     private $apiUri = 'https://restcountries.eu/rest/v1/alpha/';
     private $logger;
-    private $currencyCodeData = '';
 
     public function __construct(LoggerInterface $logger)
     {
@@ -31,7 +31,9 @@ class CurrencyCodeApi implements SimpleApiInterface
     {
         $request = new Request();
         $request->setHeaders($this->getHeaders());
-        $request->setUri($this->apiUri . $uri);
+        $finalUri = $this->apiUri . $uri;
+        $this->logger->info('THY URI ' . $finalUri);
+        $request->setUri($finalUri);
         $response = $this->getResponse($request);
         return $response;
     }
@@ -40,7 +42,7 @@ class CurrencyCodeApi implements SimpleApiInterface
     {
         $client = new Client();
         $options = [
-            'adapter' => 'Zend\Http\Client\Adapter\Curl',
+            'adapter' => Curl::class,
             'timeout' => 200
         ];
         $client->setOptions($options);
@@ -50,23 +52,16 @@ class CurrencyCodeApi implements SimpleApiInterface
 
     public function getDataJson(string $countryId)
     {
-        if ($this->currencyCodeData == '') {
-            $this->getToken();
-            $requestUri = '/' . $countryId;
-            $currencyCodeData = $this->sendRequest($requestUri);
-            $this->logger->info($requestUri);
-            $this->logger->info($currencyCodeData);
-            $this->logger->info('API FINNISHED');
-        }
+        $requestUri = $countryId;
+        $currencyCodeData = $this->sendRequest($requestUri);
         return $currencyCodeData;
     }
 
     public function getCurrencyCode(string $countryId)
     {
         $responseJson = $this->getDataJson($countryId);
-        $currencyCode = empty($shippingMethod) ?
+        $currencyCode = empty($responseJson) ?
             "Not available" : json_decode($responseJson, true)['currencies'][0];
-        $this->logger->info($currencyCode);
         return $currencyCode;
     }
 

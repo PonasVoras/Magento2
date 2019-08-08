@@ -17,8 +17,7 @@ class ShippingMethodDataApi implements SimpleApiInterface
 
     public function __construct(
         LoggerInterface $logger
-    )
-    {
+    ) {
         $this->logger = $logger;
     }
 
@@ -36,7 +35,9 @@ class ShippingMethodDataApi implements SimpleApiInterface
     {
         $request = new Request();
         $request->setHeaders($this->getHeaders());
+        $finalUri = $this->apiUri . $uri;
         $request->setUri($this->apiUri . $uri);
+        $this->logger->info('THY URI ' . $finalUri);
         $response = $this->getResponse($request);
         return $response;
     }
@@ -57,7 +58,7 @@ class ShippingMethodDataApi implements SimpleApiInterface
     {
         $tokenResponse = $this->sendRequest('/auth/' . self::USER_ID);
         $tokenResponse = json_decode($tokenResponse, true);
-        $this->token = $tokenResponse['authToken'];
+        $this->apiToken = $tokenResponse['authToken'];
         $this->logger->info($this->apiToken);
     }
 
@@ -67,14 +68,15 @@ class ShippingMethodDataApi implements SimpleApiInterface
             $this->getToken();
             $requestUri = '/' . $this->apiToken . '/' . $countryId;
             $shippingData = $this->sendRequest($requestUri);
+            return $shippingData;
         }
-        return $shippingData;
+        return '';
     }
 
     public function getShippingMethod(string $countryId)
     {
         $responseJson = $this->getDataJson($countryId);
-        $shippingMethod = empty($shippingMethod) ?
+        $shippingMethod = empty($responseJson) ?
             "Not available" : json_decode($responseJson, true)['methodName'];
         return $shippingMethod;
     }
@@ -82,7 +84,7 @@ class ShippingMethodDataApi implements SimpleApiInterface
     public function getShippingPrice(string $countryId)
     {
         $responseJson = $this->getDataJson($countryId);
-        $shippingPrice = empty($shippingPrice) ?
+        $shippingPrice = empty($responseJson) ?
             "0.0" : json_decode($responseJson, true)['price'];
         return $shippingPrice;
     }
@@ -90,7 +92,7 @@ class ShippingMethodDataApi implements SimpleApiInterface
     public function getShippingCarrierName(string $countryId)
     {
         $responseJson = $this->getDataJson($countryId);
-        $shippingCarrierName = empty($shippingCarrierName) ?
+        $shippingCarrierName = empty($responseJson) ?
             "Not available" : json_decode($responseJson, true)['carierName'];
         return $shippingCarrierName;
     }

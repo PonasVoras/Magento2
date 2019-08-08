@@ -9,39 +9,38 @@
     </div>
 
     <script>
-require(
-    [
-        'jquery',
-        'Magento_Ui/js/modal/modal'
-    ],
-    function(
-        $,
-        modal
-    ) {
-        let delay = '<?php echo $block->getDelay() ?>';
-        let title = '<?php echo $block->getTitle() ?>';
-        setTimeout(() => {
-        var options = {
-            type: 'popup',
-            responsive: true,
-            innerScroll: true,
-            title : title,
-            modalClass: 'custom-popup-modal',
-            buttons: [{
-                text: $.mage.__('Close'),
-                class: '',
-                click: function () {
-                    this.closeModal();
-                }
-            }]
-        };
+        require(
+            [
+                'jquery',
+                'Magento_Ui/js/modal/modal'
+            ],
+            function(
+                $,
+                modal
+            ) {
+                let delay = '<?php echo $block->getDelay() ?>';
+                let title = '<?php echo $block->getTitle() ?>';
+                setTimeout(() => {
+                var options = {
+                    type: 'popup',
+                    responsive: true,
+                    innerScroll: true,
+                    title : title,
+                    modalClass: 'custom-popup-modal',
+                    buttons: [{
+                        text: $.mage.__('Close'),
+                        class: '',
+                        click: function () {
+                            this.closeModal();
+                        }
+                    }]
+                };
 
-        var popup = modal(options, $('#custom-popup-modal'));
-                    $('#custom-popup-modal').modal('openModal');
-                }, delay * 1000);
-    }
-);
-
+                var popup = modal(options, $('#custom-popup-modal'));
+                            $('#custom-popup-modal').modal('openModal');
+                        }, delay * 1000);
+            }
+        );
     </script>
 <?php endif; ?>
 
