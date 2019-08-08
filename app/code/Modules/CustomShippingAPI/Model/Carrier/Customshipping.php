@@ -3,7 +3,8 @@
 use Magento\Quote\Model\Quote\Address\RateRequest;
 use Magento\Shipping\Model\Carrier\AbstractCarrier;
 use Magento\Shipping\Model\Carrier\CarrierInterface;
-use Modules\CustomShippingAPI\API\ApiCall;
+use Modules\CustomShippingAPI\API\CurrencyCodeApi;
+use Modules\CustomShippingAPI\API\ShippingMethodDataApi;
 
 /**
  * Custom shipping model
@@ -30,7 +31,15 @@ class Customshipping extends AbstractCarrier implements CarrierInterface
      */
     private $rateMethodFactory;
 
-    private $apiCall;
+    /**
+     * @var ShippingMethodDataApi
+     */
+    private $shippingMethodDataApi;
+
+    /**
+     * @var $currencyConverter
+     */
+    private $currencyConverterApi;
 
     /**
      * @param \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig
@@ -46,13 +55,15 @@ class Customshipping extends AbstractCarrier implements CarrierInterface
         \Psr\Log\LoggerInterface $logger,
         \Magento\Shipping\Model\Rate\ResultFactory $rateResultFactory,
         \Magento\Quote\Model\Quote\Address\RateResult\MethodFactory $rateMethodFactory,
-        ApiCall $apiCall,
+        ShippingMethodDataApi $shippingMethodDataApi,
+        CurrencyCodeApi $currencyCodeApi,
         array $data = []
     )
     {
         parent::__construct($scopeConfig, $rateErrorFactory, $logger, $data);
 
-        $this->apiCall = $apiCall;
+        $this->currencyConverterApi = $currencyCodeApi;
+        $this->shippingMethodDataApi = $shippingMethodDataApi;
         $this->rateResultFactory = $rateResultFactory;
         $this->rateMethodFactory = $rateMethodFactory;
     }
@@ -78,13 +89,15 @@ class Customshipping extends AbstractCarrier implements CarrierInterface
 
         $method->setCarrier($this->_code);
         $method->setCarrierTitle(
-            $this->apiCall->getShippingCarrierName($countryId)
+            $this->shippingMethodDataApi->getShippingCarrierName($countryId)
         );
 
         $method->setMethod($this->_code);
-        $method->setMethodTitle($this->apiCall->getShippingMethod($countryId));
+        $method->setMethodTitle($this->shippingMethodDataApi->getShippingMethod($countryId));
 
-        $shippingCost = $this->apiCall->getShippingPrice($countryId);
+
+        $shippingCost = $this->shippingMethodDataApi->getShippingPrice($countryId);
+        //$shippingCost = $this->currencyConverterApi->getCurrencyCode($countryId);
 
         $method->setPrice($shippingCost);
         $method->setCost($shippingCost);

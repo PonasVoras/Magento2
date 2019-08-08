@@ -1,0 +1,8 @@
+<?php namespace Modules\CustomShippingAPI\Helper;
+
+use Modules\CustomShippingAPI\API\CurrencyCodeApi;
+
+class CurrencyConverter
+{
+
+}

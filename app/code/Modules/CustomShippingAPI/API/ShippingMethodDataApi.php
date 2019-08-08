@@ -1,14 +1,15 @@
 <?php namespace Modules\CustomShippingAPI\API;
 
+use Modules\CustomShippingAPI\API\Intrefaces\SimpleApiInterface;
 use Psr\Log\LoggerInterface;
 use Zend\Http\Client;
 use Zend\Http\Headers;
 use Zend\Http\Request;
 
-class ShippingMethodDataApi
+class ShippingMethodDataApi implements SimpleApiInterface
 {
-    private $token;
-    private $URI_API = 'https://5d317bb345e2b00014d93f1c.mockapi.io';
+    private $apiToken;
+    private $apiUri = 'https://5d317bb345e2b00014d93f1c.mockapi.io';
     private const USER_ID = 658764298;
 
     private $logger;
@@ -35,11 +36,10 @@ class ShippingMethodDataApi
     {
         $request = new Request();
         $request->setHeaders($this->getHeaders());
-        $request->setUri($this->URI_API . $uri);
+        $request->setUri($this->apiUri . $uri);
         $response = $this->getResponse($request);
         return $response;
     }
-
 
     public function getResponse(Request $request): string
     {
@@ -53,30 +53,27 @@ class ShippingMethodDataApi
         return $response->getBody();
     }
 
-    private function getToken()
+    public function getToken()
     {
         $tokenResponse = $this->sendRequest('/auth/' . self::USER_ID);
         $tokenResponse = json_decode($tokenResponse, true);
         $this->token = $tokenResponse['authToken'];
-        $this->logger->info($this->token);
+        $this->logger->info($this->apiToken);
     }
 
-    private function getShippingDataJson(string $countryId)
+    public function getDataJson(string $countryId)
     {
         if ($this->shippingData == '') {
             $this->getToken();
-            $requestUri = '/' . $this->token . '/' . $countryId;
+            $requestUri = '/' . $this->apiToken . '/' . $countryId;
             $shippingData = $this->sendRequest($requestUri);
-            $this->logger->info($requestUri);
-            $this->logger->info($shippingData);
-            $this->logger->info('API FINNISHED');
         }
         return $shippingData;
     }
 
     public function getShippingMethod(string $countryId)
     {
-        $responseJson = $this->getShippingDataJson($countryId);
+        $responseJson = $this->getDataJson($countryId);
         $shippingMethod = empty($shippingMethod) ?
             "Not available" : json_decode($responseJson, true)['methodName'];
         return $shippingMethod;
@@ -84,7 +81,7 @@ class ShippingMethodDataApi
 
     public function getShippingPrice(string $countryId)
     {
-        $responseJson = $this->getShippingDataJson($countryId);
+        $responseJson = $this->getDataJson($countryId);
         $shippingPrice = empty($shippingPrice) ?
             "0.0" : json_decode($responseJson, true)['price'];
         return $shippingPrice;
@@ -92,7 +89,7 @@ class ShippingMethodDataApi
 
     public function getShippingCarrierName(string $countryId)
     {
-        $responseJson = $this->getShippingDataJson($countryId);
+        $responseJson = $this->getDataJson($countryId);
         $shippingCarrierName = empty($shippingCarrierName) ?
             "Not available" : json_decode($responseJson, true)['carierName'];
         return $shippingCarrierName;
