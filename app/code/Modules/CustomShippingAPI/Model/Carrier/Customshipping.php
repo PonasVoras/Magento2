@@ -1,10 +1,10 @@
-<?php
-
-namespace Modules\CustomShippingAPI\Model\Carrier;
+<?php namespace Modules\CustomShippingAPI\Model\Carrier;
 
 use Magento\Quote\Model\Quote\Address\RateRequest;
 use Magento\Shipping\Model\Carrier\AbstractCarrier;
 use Magento\Shipping\Model\Carrier\CarrierInterface;
+use Modules\CustomShippingAPI\API\ApiCall;
+use Psr\Log\LoggerInterface;
 
 /**
  * Custom shipping model
@@ -31,6 +31,8 @@ class Customshipping extends AbstractCarrier implements CarrierInterface
      */
     private $rateMethodFactory;
 
+    private $apiCall;
+
     /**
      * @param \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig
      * @param \Magento\Quote\Model\Quote\Address\RateResult\ErrorFactory $rateErrorFactory
@@ -45,10 +47,13 @@ class Customshipping extends AbstractCarrier implements CarrierInterface
         \Psr\Log\LoggerInterface $logger,
         \Magento\Shipping\Model\Rate\ResultFactory $rateResultFactory,
         \Magento\Quote\Model\Quote\Address\RateResult\MethodFactory $rateMethodFactory,
+        ApiCall $apiCall,
         array $data = []
-    ) {
+    )
+    {
         parent::__construct($scopeConfig, $rateErrorFactory, $logger, $data);
 
+        $this->apiCall = $apiCall;
         $this->rateResultFactory = $rateResultFactory;
         $this->rateMethodFactory = $rateMethodFactory;
     }
@@ -64,7 +69,7 @@ class Customshipping extends AbstractCarrier implements CarrierInterface
         if (!$this->getConfigFlag('active')) {
             return false;
         }
-        $countryId= $request->getDestCountryId();
+        $countryId = $request->getDestCountryId();
         /** @var \Magento\Shipping\Model\Rate\Result $result */
         $result = $this->rateResultFactory->create();
 
@@ -72,13 +77,15 @@ class Customshipping extends AbstractCarrier implements CarrierInterface
         $method = $this->rateMethodFactory->create();
 
         $method->setCarrier($this->_code);
-        $method->setCarrierTitle($this->getConfigData('title'));
+        $method->setCarrierTitle(
+            $this->apiCall->getShippingCarrierName('LT')
+        );
 
         $method->setMethod($this->_code);
-        $method->setMethodTitle($request->getDestCountryId());
+        $method->setMethodTitle($this->apiCall->getShippingMethod('LT'));
 
-
-        $shippingCost = 4.20;
+        $shippingCost = $this->apiCall->getShippingPrice('LT');
+        //$shippingCost = 4.20;
 
         $method->setPrice($shippingCost);
         $method->setCost($shippingCost);

@@ -1,4 +1,4 @@
-<?php namespace Modules\Promo\Helper;
+<?php namespace Modules\CustomShippingAPI\Helper;
 
 use Magento\Framework\App\Helper\AbstractHelper;
 use Magento\Store\Model\ScopeInterface;
@@ -6,7 +6,7 @@ use Magento\Store\Model\ScopeInterface;
 class Data extends AbstractHelper
 {
 
-    const XML_PATH_PROMO = 'promo/';
+    const XML_PATH_PROMO = 'customshipping/';
 
     public function getConfigValue($field, $storeId = null)
     {

@@ -5,6 +5,7 @@ use Magento\Catalog\Block\Product\Context;
 use Magento\Catalog\Model\ResourceModel\Product\CollectionFactory;
 use Psr\Log\LoggerInterface;
 
+
 class Featured extends AbstractProduct
 {
     protected $_productCollectionFactory;
