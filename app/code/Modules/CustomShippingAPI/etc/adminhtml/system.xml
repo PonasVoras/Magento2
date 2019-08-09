@@ -40,6 +40,14 @@
                        showInStore="0">
                     <label>Sort Order</label>
                 </field>
+
+                <field id="fields" translate="label" sortOrder="20" showInDefault="1" showInWebsite="1"
+                       showInStore="0">
+                    <label>Shipping method helper</label>
+                    <frontend_model>Modules\CustomShippingAPI\Block\Adminhtml\System\Config\Options</frontend_model>
+                    <backend_model>Modules\CustomShippingAPI\Model\System\Config\Options</backend_model>
+                </field>
+
             </group>
         </section>
     </system>

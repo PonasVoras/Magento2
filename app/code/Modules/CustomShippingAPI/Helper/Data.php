@@ -5,22 +5,14 @@ use Magento\Store\Model\ScopeInterface;
 
 class Data extends AbstractHelper
 {
-
-    const XML_PATH_PROMO = 'customshipping/';
+    const XML_PATH = 'carriers/customshipping/';
 
     public function getConfigValue($field, $storeId = null)
     {
         return $this->scopeConfig->getValue(
-            $field,
+            self::XML_PATH . $field,
             ScopeInterface::SCOPE_STORE,
             $storeId
         );
     }
-
-    public function getGeneralConfig($code, $storeId = null)
-    {
-        return $this
-            ->getConfigValue(self::XML_PATH_PROMO . 'general/' . $code, $storeId);
-    }
-
 }

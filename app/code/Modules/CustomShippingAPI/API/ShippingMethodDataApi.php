@@ -2,6 +2,7 @@
 
 use Modules\CustomShippingAPI\API\Intrefaces\SimpleApiInterface;
 use Psr\Log\LoggerInterface;
+use Zend\Http\Client\Adapter\Curl;
 use Zend\Http\Client;
 use Zend\Http\Headers;
 use Zend\Http\Request;
@@ -36,8 +37,7 @@ class ShippingMethodDataApi implements SimpleApiInterface
         $request = new Request();
         $request->setHeaders($this->getHeaders());
         $finalUri = $this->apiUri . $uri;
-        $request->setUri($this->apiUri . $uri);
-        $this->logger->info('THY URI ' . $finalUri);
+        $request->setUri($finalUri);
         $response = $this->getResponse($request);
         return $response;
     }
@@ -46,7 +46,7 @@ class ShippingMethodDataApi implements SimpleApiInterface
     {
         $client = new Client();
         $options = [
-            'adapter' => 'Zend\Http\Client\Adapter\Curl',
+            'adapter' => Curl::class,
             'timeout' => 200
         ];
         $client->setOptions($options);
@@ -96,4 +96,14 @@ class ShippingMethodDataApi implements SimpleApiInterface
             "Not available" : json_decode($responseJson, true)['carierName'];
         return $shippingCarrierName;
     }
+
+    public function getShippingCurrency(string $countryId)
+    {
+        $responseJson = $this->getDataJson($countryId);
+        $shippingCurrency = empty($responseJson) ?
+            "Not available" : json_decode($responseJson, true)['currency'];
+        return $shippingCurrency;
+    }
+
+
 }

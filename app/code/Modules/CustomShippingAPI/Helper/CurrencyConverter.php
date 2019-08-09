@@ -6,11 +6,14 @@ class CurrencyConverter
 {
     protected $storeManager;
     protected $currencyFactory;
+
     public function __construct(
         CurrencyFactory $currencyFactory
-    ) {
+    )
+    {
         $this->currencyFactory = $currencyFactory;
     }
+
     public function convert(float $amountValue, string $currencyCodeFrom, string $currencyCodeTo): float
     {
         if ($currencyCodeFrom === $currencyCodeTo) {

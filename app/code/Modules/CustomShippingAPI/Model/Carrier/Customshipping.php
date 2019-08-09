@@ -9,12 +9,12 @@ use Magento\Shipping\Model\Carrier\AbstractCarrier;
 use Magento\Shipping\Model\Carrier\CarrierInterface;
 use Magento\Shipping\Model\Rate\Result;
 use Magento\Shipping\Model\Rate\ResultFactory;
-use Modules\CustomShippingAPI\API\CurrencyCodeApi;
 use Modules\CustomShippingAPI\API\ShippingMethodDataApi;
 use Modules\CustomShippingAPI\Helper\CurrencyConverter;
+use Modules\CustomShippingAPI\Helper\NameHelper;
 use Psr\Log\LoggerInterface;
 
-/**
+    /**
  * Custom shipping model
  */
 class Customshipping extends AbstractCarrier implements CarrierInterface
@@ -23,37 +23,31 @@ class Customshipping extends AbstractCarrier implements CarrierInterface
      * @var string
      */
     protected $_code = 'customshipping';
-
     /**
      * @var bool
      */
     protected $_isFixed = true;
-
     /**
      * @var ResultFactory
      */
     private $rateResultFactory;
-
     /**
      * @var MethodFactory
      */
     private $rateMethodFactory;
-
     /**
      * @var ShippingMethodDataApi
      */
     private $shippingMethodDataApi;
 
     /**
-     * @var $currencyCodeApi
-     */
-    private $currencyCodeApi;
-
-    /**
-     * @var $currencyConverter
+     * @var CurrencyConverter
      */
     private $currencyConverter;
 
+    private $logger;
+
+    private $nameHelper;
     /**
      * @param ScopeConfigInterface $scopeConfig
      * @param ErrorFactory $rateErrorFactory
@@ -69,19 +63,18 @@ class Customshipping extends AbstractCarrier implements CarrierInterface
         \Magento\Shipping\Model\Rate\ResultFactory $rateResultFactory,
         \Magento\Quote\Model\Quote\Address\RateResult\MethodFactory $rateMethodFactory,
         ShippingMethodDataApi $shippingMethodDataApi,
-        CurrencyCodeApi $currencyCodeApi,
-        CurrencyConverter $currencyConverter
-    )
-    {
-        parent::__construct($scopeConfig, $rateErrorFactory, $logger);
+        CurrencyConverter $currencyConverter,
+        NameHelper $nameHelper
 
+    ) {
+        parent::__construct($scopeConfig, $rateErrorFactory, $logger);
         $this->currencyConverter = $currencyConverter;
-        $this->currencyCodeApi = $currencyCodeApi;
         $this->shippingMethodDataApi = $shippingMethodDataApi;
         $this->rateResultFactory = $rateResultFactory;
         $this->rateMethodFactory = $rateMethodFactory;
+        $this->logger = $logger;
+        $this->nameHelper = $nameHelper;
     }
-
     /**
      * Custom Shipping Rates Collector
      *
@@ -94,34 +87,29 @@ class Customshipping extends AbstractCarrier implements CarrierInterface
             return false;
         }
         $countryId = $request->getDestCountryId();
-        $currencyCodeFrom = $this->currencyCodeApi->getCurrencyCode($countryId);
+        $currencyCodeFrom = $this->shippingMethodDataApi->getShippingCurrency($countryId);
         $currencyCodeTo = 'USD';
         $price = $this->shippingMethodDataApi->getShippingPrice($countryId);
-
         /** @var Result $result */
         $result = $this->rateResultFactory->create();
-
         /** @var Method $method */
-        $method = $this->rateMethodFactory->create();
-
-        $method->setCarrier($this->_code);
-        $method->setCarrierTitle(
-            $this->shippingMethodDataApi->getShippingCarrierName($countryId)
-        );
-
-        $method->setMethod($this->_code);
-        $method->setMethodTitle($this->shippingMethodDataApi->getShippingMethod($countryId));
-
         $shippingCost = $this->currencyConverter->convert($price, $currencyCodeFrom, $currencyCodeTo);
+        $carrierName = $this->shippingMethodDataApi->getShippingCarrierName($countryId);
+        $carrierName = $this->nameHelper->normalizeName($carrierName);
+        $methodName = $this->shippingMethodDataApi->getShippingMethod($countryId);
+        $methodName = $this->nameHelper->normalizeName($methodName);
 
+        $method = $this->rateMethodFactory->create();
+        $method->setCarrier($this->_code);
+        $method->setCarrierTitle($carrierName);
+        $method->setMethod($this->_code);
+        $method->setMethodTitle($methodName);
         $method->setPrice($shippingCost);
         $method->setCost($shippingCost);
 
         $result->append($method);
-
         return $result;
     }
-
     /**
      * @return array
      */
