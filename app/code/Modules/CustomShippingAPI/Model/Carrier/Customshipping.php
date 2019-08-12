@@ -3,7 +3,6 @@
 use Magento\Framework\App\Config\ScopeConfigInterface;
 use Magento\Quote\Model\Quote\Address\RateRequest;
 use Magento\Quote\Model\Quote\Address\RateResult\ErrorFactory;
-use Magento\Quote\Model\Quote\Address\RateResult\Method;
 use Magento\Quote\Model\Quote\Address\RateResult\MethodFactory;
 use Magento\Shipping\Model\Carrier\AbstractCarrier;
 use Magento\Shipping\Model\Carrier\CarrierInterface;
@@ -11,10 +10,11 @@ use Magento\Shipping\Model\Rate\Result;
 use Magento\Shipping\Model\Rate\ResultFactory;
 use Modules\CustomShippingAPI\API\ShippingMethodDataApi;
 use Modules\CustomShippingAPI\Helper\CurrencyConverter;
+use Modules\CustomShippingAPI\Helper\Data;
 use Modules\CustomShippingAPI\Helper\NameHelper;
 use Psr\Log\LoggerInterface;
 
-    /**
+/**
  * Custom shipping model
  */
 class Customshipping extends AbstractCarrier implements CarrierInterface
@@ -48,6 +48,9 @@ class Customshipping extends AbstractCarrier implements CarrierInterface
     private $logger;
 
     private $nameHelper;
+
+    private $configData;
+
     /**
      * @param ScopeConfigInterface $scopeConfig
      * @param ErrorFactory $rateErrorFactory
@@ -64,10 +67,12 @@ class Customshipping extends AbstractCarrier implements CarrierInterface
         \Magento\Quote\Model\Quote\Address\RateResult\MethodFactory $rateMethodFactory,
         ShippingMethodDataApi $shippingMethodDataApi,
         CurrencyConverter $currencyConverter,
-        NameHelper $nameHelper
+        NameHelper $nameHelper,
+        Data $configData
 
     ) {
         parent::__construct($scopeConfig, $rateErrorFactory, $logger);
+        $this->configData = $configData;
         $this->currencyConverter = $currencyConverter;
         $this->shippingMethodDataApi = $shippingMethodDataApi;
         $this->rateResultFactory = $rateResultFactory;
@@ -75,6 +80,7 @@ class Customshipping extends AbstractCarrier implements CarrierInterface
         $this->logger = $logger;
         $this->nameHelper = $nameHelper;
     }
+
     /**
      * Custom Shipping Rates Collector
      *
@@ -83,21 +89,23 @@ class Customshipping extends AbstractCarrier implements CarrierInterface
      */
     public function collectRates(RateRequest $request)
     {
+        $freeShippingEnabled = $request->getFreeShipping();
         if (!$this->getConfigFlag('active')) {
             return false;
         }
         $countryId = $request->getDestCountryId();
         $currencyCodeFrom = $this->shippingMethodDataApi->getShippingCurrency($countryId);
         $currencyCodeTo = 'USD';
-        $price = $this->shippingMethodDataApi->getShippingPrice($countryId);
-        /** @var Result $result */
+        $shippingCost = 0.0;
         $result = $this->rateResultFactory->create();
-        /** @var Method $method */
-        $shippingCost = $this->currencyConverter->convert($price, $currencyCodeFrom, $currencyCodeTo);
         $carrierName = $this->shippingMethodDataApi->getShippingCarrierName($countryId);
         $carrierName = $this->nameHelper->normalizeName($carrierName);
         $methodName = $this->shippingMethodDataApi->getShippingMethod($countryId);
         $methodName = $this->nameHelper->normalizeName($methodName);
+        if (!$freeShippingEnabled && !$this->isFreeShippingEligible($methodName)) {
+            $price = $this->shippingMethodDataApi->getShippingPrice($countryId);
+            $shippingCost = $this->currencyConverter->convert($price, $currencyCodeFrom, $currencyCodeTo);
+        }
 
         $method = $this->rateMethodFactory->create();
         $method->setCarrier($this->_code);
@@ -110,6 +118,18 @@ class Customshipping extends AbstractCarrier implements CarrierInterface
         $result->append($method);
         return $result;
     }
+
+    private function isFreeShippingEligible($shippingMethod)
+    {
+        $shippingData = json_decode($this->configData->getConfigValue('fields'), true);
+        foreach ($shippingData as $methodData) {
+            if ($methodData['primary'] === $shippingMethod) {
+                return $methodData['enable'] === '1';
+            }
+        }
+        return true;
+    }
+
     /**
      * @return array
      */

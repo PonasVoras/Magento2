@@ -31,8 +31,6 @@ class NameHelper
             $value['primary'] == $rawName ?
                 $result = $value['result'] : null;
         }
-        $this->logger->info('I am working');
-        $this->logger->info($result);
         return $result;
     }
 }

@@ -59,7 +59,7 @@ class ShippingMethodDataApi implements SimpleApiInterface
         $tokenResponse = $this->sendRequest('/auth/' . self::USER_ID);
         $tokenResponse = json_decode($tokenResponse, true);
         $this->apiToken = $tokenResponse['authToken'];
-        $this->logger->info($this->apiToken);
+        //$this->logger->info($this->apiToken);
     }
 
     public function getDataJson(string $countryId)
@@ -104,6 +104,4 @@ class ShippingMethodDataApi implements SimpleApiInterface
             "Not available" : json_decode($responseJson, true)['currency'];
         return $shippingCurrency;
     }
-
-
 }
