@@ -18,9 +18,7 @@ class OrderDataApi
     public function __construct(
         LoggerInterface $logger,
         CurlFactory $curlFactory
-    )
-    {
-
+    ) {
         $this->logger = $logger;
         $this->curlFactory = $curlFactory;
     }
@@ -28,7 +26,8 @@ class OrderDataApi
     public function postRequest($orderData)
     {
         try {
-            $url = $this->url . $this->storeId;
+            $url = $this->url
+                . '/' . $this->storeId;
             $requestBody = json_encode($orderData);
             $httpAdapter = $this->curlFactory->create();
             $method = Zend_Http_Client::POST;
@@ -61,13 +60,22 @@ class OrderDataApi
         }
     }
 
-    public function getResponse(Request $request): string
+    public function deleteRequest($orderData, $orderId)
     {
-        // TODO: Implement getResponse() method.
-    }
-
-    public function getDataJson(string $countryId)
-    {
-        // TODO: Implement getDataJson() method.
+        try {
+            $url = $this->url
+                . '/' . $this->storeId
+                . '/' . $orderId;
+            $requestBody = json_encode($orderData);
+            $httpAdapter = $this->curlFactory->create();
+            $method = Zend_Http_Client::PUT;
+            $headers = ["Content-Type:application/json"];
+            $httpAdapter->write($method, $url, '1.1', $headers, $requestBody);
+            $result = $httpAdapter->read();
+            $body = Zend_Http_Response::extractBody($result);
+            return $body;
+        } catch (Exception $e) {
+            $this->logger->info('Error Curl', ['exception' => $e]);
+        }
     }
 }

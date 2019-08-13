@@ -1,8 +1,9 @@
-<?php namespace Modules\CustomShippingAPI\Model\OrderData;
+<?php namespace Modules\CustomShippingAPI\Model;
 
 use Magento\Framework\DataObject\IdentityInterface;
+use Magento\Framework\Model\AbstractModel;
 
-class OrderData implements IdentityInterface
+class OrderData extends AbstractModel implements IdentityInterface
 {
     const CACHE_TAG = 'custom_shipping_method_orders';
 
@@ -12,7 +13,7 @@ class OrderData implements IdentityInterface
 
     protected function _construct()
     {
-        $this->_init('Mageplaza\HelloWorld\Model\ResourceModel\Post');
+        $this->_init('Modules\CustomShippingAPI\Model\ResourceModel\OrderData');
     }
 
     public function getIdentities()

@@ -32,14 +32,14 @@ class UpgradeSchema implements UpgradeSchemaInterface
                         'order_id',
                         Table::TYPE_INTEGER,
                         null,
-                        ['nullable => false'],
+                        ['nullable' => false],
                         'Order id real'
                     )
                     ->addColumn(
                         'order_id_response',
                         Table::TYPE_INTEGER,
                         null,
-                        ['nullable => false'],
+                        ['nullable' => false],
                         'Order id from api response'
                     )
                     ->setComment('Custom Shipping method orders');
