@@ -9,8 +9,7 @@ class CurrencyConverter
 
     public function __construct(
         CurrencyFactory $currencyFactory
-    )
-    {
+    ) {
         $this->currencyFactory = $currencyFactory;
     }
 

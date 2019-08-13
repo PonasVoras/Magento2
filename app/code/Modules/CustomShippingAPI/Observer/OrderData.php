@@ -3,18 +3,21 @@
 use Magento\Framework\Event\Observer;
 use Magento\Framework\Event\ObserverInterface;
 use Modules\CustomShippingAPI\API\OrderDataApi;
+use Modules\CustomShippingAPI\Helper\OrderDataFactory;
 use Psr\Log\LoggerInterface;
 
 class OrderData implements ObserverInterface
 {
     private $logger;
     private $orderDataApi;
+    private $orderDataFactory;
 
     public function __construct(
         LoggerInterface $logger,
-        OrderDataApi $orderDataApi
-    )
-    {
+        OrderDataApi $orderDataApi,
+        OrderDataFactory $orderDataFactory
+    ) {
+        $this->orderDataFactory = $orderDataFactory;
         $this->orderDataApi = $orderDataApi;
         $this->logger = $logger;
         $this->logger->info('I will observe');
@@ -29,33 +32,10 @@ class OrderData implements ObserverInterface
 
     public function saveOrder($orderObject)
     {
-        $orderInfo = $orderObject->getData();
-        $orderShippingInfo = $orderObject->getShippingAddress()->getData();
-        $orderItemInfo = $orderObject->getAllItems();
-
-        $orderData['id'] = $orderObject->getId();
-        $orderData['createdAt'] = $orderInfo['created_at'];
-        $orderData['customerName'] = $orderInfo['customer_firstname'];
-
-        $orderData['address']['city'] = $orderShippingInfo['city'];
-        $orderData['address']['country'] = $orderShippingInfo['country_id'];
-        $orderData['address']['postCode'] = $orderShippingInfo['postcode'];
-        $orderData['address']['street'] = $orderShippingInfo['street'];
-
-        foreach ($orderItemInfo as $item) {
-            $orderData['items']['name'] = $item->getName();
-            $orderData['items']['price'] = $item->getPrice();
-            $orderData['items']['qty'] = $item->getQtyToShip();
-        }
-        $orderData['shippingMethod'] = $orderInfo['shipping_method'];
-
+        $orderData = $this->orderDataFactory->create($orderObject);
         $this->logger->info('Formatted order data, ready to send to an API: '
             . json_encode($orderData));
-        $this->orderDataApi
-            ->createPostRequest($orderData)
-            ->sendRequest();
-
-        $this->logger->info('Response from the API: '
-            . $this->orderDataApi->getResponse());
+        $responseApi = $this->orderDataApi->postRequest($orderData);
+        $this->logger->info('API response' . $responseApi);
     }
 }

@@ -10,12 +10,6 @@ interface SimpleApiInterface
     public function getHeaders();
 
     /**
-     * @param string $uri
-     * @return mixed
-     */
-    public function sendRequest(string $uri);
-
-    /**
      * @param Request $request
      * @return string
      */

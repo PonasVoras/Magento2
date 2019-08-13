@@ -1,43 +1,64 @@
 <?php namespace Modules\CustomShippingAPI\API;
 
+use Magento\Framework\HTTP\Adapter\CurlFactory;
 use Modules\CustomShippingAPI\API\Intrefaces\SimpleApiInterface;
+use Psr\Log\LoggerInterface;
+use Zend\http\Client;
+use Zend\Http\Client\Adapter;
+use Zend\Http\Headers;
 use Zend\Http\Request;
 
-class OrderDataApi implements SimpleApiInterface
+class OrderDataApi
 {
     private $storeId = 'store1';
+    private $url = 'https://5d317bb345e2b00014d93f1c.mockapi.io/';
+    private $request;
+    private $logger;
+    private $curlFactory;
 
-    public function getHeaders()
-    {
-        // TODO: Implement getHeaders() method.
+    public function __construct(
+        LoggerInterface $logger,
+        CurlFactory $curlFactory
+    ) {
+
+        $this->logger = $logger;
+        $this->curlFactory = $curlFactory;
     }
 
-    public function sendRequest(string $uri)
+    public function postRequest($orderData)
     {
-        // TODO: Implement sendRequest() method.
-
+        try {
+            $url = $this->url . $this->storeId;
+            $requestBody = json_encode($orderData);
+            $httpAdapter = $this->curlFactory->create();
+            $method = \Zend_Http_Client::POST;
+            $headers = ["Content-Type:application/json"];
+            $httpAdapter->write($method, $url, '1.1', $headers, $requestBody);
+            $result = $httpAdapter->read();
+            $body = \Zend_Http_Response::extractBody($result);
+            return $body;
+        } catch (\Exception $e) {
+            $this->logger->info('Error Curl', ['exception' => $e]);
+        }
     }
 
-    public function createPostRequest($orderData)
+    public function putRequest($orderData)
     {
-        $request = new Request();
-        $request->setMethod(Request::METHOD_POST);
-        $request->setUri('5d317bb345e2b00014d93f1c.mockapi.io/' . $this->storeId);
-        $request->getHeaders()->addHeaders([
-            'Content-Type' => 'application/json; charset=UTF-8'
-        ]);
-        return $this;
+        try {
+            $url = $this->url . $this->storeId;
+            $requestBody = json_encode($orderData);
+            $httpAdapter = $this->curlFactory->create();
+            $method = \Zend_Http_Client::PUT;
+            $headers = ["Content-Type:application/json"];
+            $httpAdapter->write($method, $url, '1.1', $headers, $requestBody);
+            $result = $httpAdapter->read();
+            $body = \Zend_Http_Response::extractBody($result);
+            return $body;
+        } catch (\Exception $e) {
+            $this->logger->info('Error Curl', ['exception' => $e]);
+        }
     }
 
-    public function createPutRequest()
-    {
-        return $this;
-    }
-
-    public function createDeleteRequest()
-    {
-        return $this;
-    }
 
     public function getResponse(Request $request): string
     {
