@@ -3,9 +3,9 @@
 use Exception;
 use Magento\Framework\HTTP\Adapter\CurlFactory;
 use Psr\Log\LoggerInterface;
-use Zend\Http\Request;
 use Zend_Http_Client;
 use Zend_Http_Response;
+
 
 class OrderDataApi
 {
@@ -18,7 +18,8 @@ class OrderDataApi
     public function __construct(
         LoggerInterface $logger,
         CurlFactory $curlFactory
-    ) {
+    )
+    {
         $this->logger = $logger;
         $this->curlFactory = $curlFactory;
     }
@@ -60,16 +61,16 @@ class OrderDataApi
         }
     }
 
-    public function deleteRequest($orderData, $orderId)
+    public function deleteRequest($orderId)
     {
         try {
             $url = $this->url
                 . '/' . $this->storeId
                 . '/' . $orderId;
-            $requestBody = json_encode($orderData);
+            $requestBody = "";
             $httpAdapter = $this->curlFactory->create();
-            $method = Zend_Http_Client::PUT;
-            $headers = ["Content-Type:application/json"];
+            $method = Zend_Http_Client::DELETE;
+            $headers = "";
             $httpAdapter->write($method, $url, '1.1', $headers, $requestBody);
             $result = $httpAdapter->read();
             $body = Zend_Http_Response::extractBody($result);
