@@ -2,6 +2,7 @@
 
 use Magento\Framework\DataObject\IdentityInterface;
 use Magento\Framework\Model\AbstractModel;
+use Modules\CustomShippingAPI\Model\ResourceModel;
 
 class OrderData extends AbstractModel implements IdentityInterface
 {
@@ -13,7 +14,7 @@ class OrderData extends AbstractModel implements IdentityInterface
 
     protected function _construct()
     {
-        $this->_init('Modules\CustomShippingAPI\Model\ResourceModel\OrderData');
+        $this->_init(ResourceModel\OrderData::class);
     }
 
     public function getIdentities()

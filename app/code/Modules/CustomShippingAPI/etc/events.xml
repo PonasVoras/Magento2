@@ -10,7 +10,7 @@
         <observer name="order_delete" instance="Modules\CustomShippingAPI\Observer\OrderDelete"/>
     </event>
 
-<!--    <event name="sales_order_save_after">-->
-<!--        <observer name="order_update" instance="Modules\CustomShippingAPI\Observer\OrderUpdate"/>-->
-<!--    </event>-->
+    <event name="sales_order_save_after">
+        <observer name="order_update" instance="Modules\CustomShippingAPI\Observer\OrderUpdate"/>
+    </event>
 </config>

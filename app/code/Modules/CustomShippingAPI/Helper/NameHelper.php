@@ -11,8 +11,7 @@ class NameHelper
     public function __construct(
         LoggerInterface $logger,
         Data $configData
-    )
-    {
+    ) {
         $this->logger = $logger;
         $this->configData = $configData;
     }

@@ -1,6 +1,8 @@
 <?php namespace Modules\CustomShippingAPI\Model\ResourceModel\OrderData;
 
 use Magento\Framework\Model\ResourceModel\Db\Collection\AbstractCollection;
+use Modules\CustomShippingAPI\Model;
+use Modules\CustomShippingAPI\Model\ResourceModel;
 
 class Collection extends AbstractCollection
 {
@@ -16,6 +18,6 @@ class Collection extends AbstractCollection
      */
     protected function _construct()
     {
-        $this->_init('Modules\CustomShippingAPI\Model\OrderData', 'Modules\CustomShippingAPI\Model\ResourceModel\OrderData');
+        $this->_init(Model\OrderData::class, ResourceModel\OrderData::class);
     }
 }

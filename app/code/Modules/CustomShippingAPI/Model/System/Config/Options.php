@@ -27,7 +27,14 @@ class Options extends ConfigValue
     ) {
         $this->logger = $logger;
         $this->serializer = $serializer;
-        parent::__construct($context, $registry, $config, $cacheTypeList, $resource, $resourceCollection, $data);
+        parent::__construct(
+            $context,
+            $registry,
+            $config,
+            $cacheTypeList,
+            $resource,
+            $resourceCollection,
+            $data);
     }
 
     public function beforeSave()
@@ -48,3 +55,4 @@ class Options extends ConfigValue
         }
     }
 }
+

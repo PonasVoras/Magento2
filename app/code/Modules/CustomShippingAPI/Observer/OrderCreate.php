@@ -1,5 +1,6 @@
 <?php namespace Modules\CustomShippingAPI\Observer;
 
+use Exception;
 use Magento\Framework\Event\Observer;
 use Magento\Framework\Event\ObserverInterface;
 use Modules\CustomShippingAPI\API\OrderDataApi;
@@ -44,26 +45,29 @@ class OrderCreate implements ObserverInterface
         $orderData = $this->orderDataFactory->create($orderObject);
         $orderDataResponse = $this->orderDataApi->postRequest($orderData);
 
-        // TODO if enabled LOGGER
-        $this->logger->info('Formatted order data, ready to send to an API: '
-            . json_encode($orderData));
+        if ($this->loggerEnable) {
+            $this->logger->info('Formatted order data, ready to send to an API: '
+                . json_encode($orderData));
 
-        $this->logger->info('API response' . $orderDataResponse);
+            $this->logger->info('API response' . $orderDataResponse);
+        }
 
         $orderDataResponse = json_decode($orderDataResponse, true);
-
         $saveOrderToDb = $this->orderDataModelFactory->create();
         $saveOrderToDb->addData([
             'order_id' => $orderData['id'],
             'order_id_response' => $orderDataResponse['id']
         ]);
 
+        try {
+            $saveOrderToDb->save();
+        } catch (Exception $e) {
+        }
 
-        $saveOrderToDb->save();
-
-        // TODO if enabled LOGGER
+        if ($this->loggerEnable) {
         $this->logger->info(
             'Successfully saved order data response from API in the database'
         );
+        }
     }
 }
