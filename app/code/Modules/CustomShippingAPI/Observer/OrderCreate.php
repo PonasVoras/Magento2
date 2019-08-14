@@ -7,7 +7,7 @@ use Modules\CustomShippingAPI\Helper;
 use Modules\CustomShippingAPI\Model;
 use Psr\Log\LoggerInterface;
 
-class OrderData implements ObserverInterface
+class OrderCreate implements ObserverInterface
 {
     private $logger;
     private $orderDataApi;
@@ -19,7 +19,8 @@ class OrderData implements ObserverInterface
         OrderDataApi $orderDataApi,
         Helper\OrderDataFactory $orderDataFactory,
         Model\OrderDataFactory $orderDataModelFactory
-    ) {
+    )
+    {
         $this->orderDataModelFactory = $orderDataModelFactory;
         $this->orderDataFactory = $orderDataFactory;
         $this->orderDataApi = $orderDataApi;
@@ -37,20 +38,31 @@ class OrderData implements ObserverInterface
     public function saveOrder($orderObject)
     {
         $orderData = $this->orderDataFactory->create($orderObject);
+        $orderDataResponse = $this->orderDataApi->postRequest($orderData);
+
+        // TODO if enabled LOGGER
         $this->logger->info('Formatted order data, ready to send to an API: '
             . json_encode($orderData));
-        $responseApi = $this->orderDataApi->postRequest($orderData);
 
-        $this->logger->info('API response' . $responseApi);
+        $this->logger->info('API response' . $orderDataResponse);
+
+        $orderDataResponse = json_decode($orderDataResponse, true);
 
         $saveOrderToDb = $this->orderDataModelFactory->create();
-        $this->logger->info(json_encode($saveOrderToDb));
+//        $saveOrderToDb->addData([
+//            'order_id' => $orderData['id'],
+//            'order_id_response' => $orderDataResponse['id']
+//        ]);
         $saveOrderToDb->addData([
-            'order_id' => 1,
-            'order_id_response' => 6
+            'order_id' => $orderData['id'],
+            'order_id_response' => 9
         ]);
-        $this->logger->info(json_encode($saveOrderToDb));
-        $this->logger->info('Done something');
+
+        // TODO if enabled LOGGER
+        $this->logger->info(
+            'Successfully saved order data response from API in the database'
+        );
+
         $saveOrderToDb->save();
     }
 }

@@ -17,13 +17,14 @@ class OrderDataFactory
         $orderData['address']['postCode'] = $orderShippingInfo['postcode'];
         $orderData['address']['street'] = $orderShippingInfo['street'];
 
+
         foreach ($orderItemInfo as $item) {
             $orderData['items'] = [
                 'name' => $item->getName(),
                 'price' => $item->getPrice(),
                 'qty' => $item->getQtyOrdered()
             ];
-        }
+        };
         $orderData['shippingMethod'] = $orderInfo['shipping_method'];
         return $orderData;
     }
