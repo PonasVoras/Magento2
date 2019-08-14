@@ -70,7 +70,8 @@ class Customshipping extends AbstractCarrier implements CarrierInterface
         NameHelper $nameHelper,
         Data $configData
 
-    ) {
+    )
+    {
         parent::__construct($scopeConfig, $rateErrorFactory, $logger);
         $this->configData = $configData;
         $this->currencyConverter = $currencyConverter;

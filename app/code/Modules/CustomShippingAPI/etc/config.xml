@@ -5,6 +5,8 @@
         <carriers>
             <customshipping>
                 <active>1</active>
+                <logger_enable>1</logger_enable>
+                <store_id>store1</store_id>
                 <uri>https://5d317bb345e2b00014d93f1c.mockapi.io</uri>
                 <sallowspecific>0</sallowspecific>
                 <sort_order>15</sort_order>

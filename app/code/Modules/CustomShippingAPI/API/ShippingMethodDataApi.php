@@ -1,6 +1,7 @@
 <?php namespace Modules\CustomShippingAPI\API;
 
 use Modules\CustomShippingAPI\API\Intrefaces\SimpleApiInterface;
+use Modules\CustomShippingAPI\Helper\Data;
 use Psr\Log\LoggerInterface;
 use Zend\Http\Client\Adapter\Curl;
 use Zend\Http\Client;
@@ -9,16 +10,22 @@ use Zend\Http\Request;
 
 class ShippingMethodDataApi implements SimpleApiInterface
 {
+
+    //$this->configData->getConfigValue('fields')
+
     private $apiToken;
     private $apiUri = 'https://5d317bb345e2b00014d93f1c.mockapi.io';
     private const USER_ID = 658764298;
 
     private $logger;
     private $shippingData = '';
+    private $configData;
 
     public function __construct(
-        LoggerInterface $logger
+        LoggerInterface $logger,
+        Data $configData
     ) {
+        $this->configData =$configData;
         $this->logger = $logger;
     }
 

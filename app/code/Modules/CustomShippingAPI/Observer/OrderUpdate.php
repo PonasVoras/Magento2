@@ -43,7 +43,7 @@ class OrderUpdate implements ObserverInterface
         $status = $data['status'];
         $items = $orderObject->getAllItems();
 
-        $order = $this->orderDataFactory
+        $order = $this->orderDataModelFactory
             ->create()
             ->load($orderId, 'order_id');
 

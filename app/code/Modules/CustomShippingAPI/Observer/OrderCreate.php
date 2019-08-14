@@ -5,11 +5,14 @@ use Magento\Framework\Event\ObserverInterface;
 use Modules\CustomShippingAPI\API\OrderDataApi;
 use Modules\CustomShippingAPI\Helper;
 use Modules\CustomShippingAPI\Model;
+use Modules\CustomShippingAPI\Helper\Data;
 use Psr\Log\LoggerInterface;
 
 class OrderCreate implements ObserverInterface
 {
     private $logger;
+    private $configData;
+    private $loggerEnable;
     private $orderDataApi;
     private $orderDataFactory;
     private $orderDataModelFactory;
@@ -18,21 +21,22 @@ class OrderCreate implements ObserverInterface
         LoggerInterface $logger,
         OrderDataApi $orderDataApi,
         Helper\OrderDataFactory $orderDataFactory,
-        Model\OrderDataFactory $orderDataModelFactory
-    )
-    {
+        Model\OrderDataFactory $orderDataModelFactory,
+        Data $configData
+    ) {
         $this->orderDataModelFactory = $orderDataModelFactory;
         $this->orderDataFactory = $orderDataFactory;
         $this->orderDataApi = $orderDataApi;
+        $this->configData = $configData;
         $this->logger = $logger;
-        $this->logger->info('I will observe');
+        $this->loggerEnable = $this->configData->getConfigValue('logger_enable');
     }
 
     public function execute(Observer $observer)
     {
-        $order = $observer->getEvent()->getOrder();
+        $orderObject = $observer->getEvent()->getOrder();
         $this->logger->info('Order was placed');
-        $this->saveOrder($order);
+        $this->saveOrder($orderObject);
     }
 
     public function saveOrder($orderObject)
@@ -49,20 +53,17 @@ class OrderCreate implements ObserverInterface
         $orderDataResponse = json_decode($orderDataResponse, true);
 
         $saveOrderToDb = $this->orderDataModelFactory->create();
-//        $saveOrderToDb->addData([
-//            'order_id' => $orderData['id'],
-//            'order_id_response' => $orderDataResponse['id']
-//        ]);
         $saveOrderToDb->addData([
             'order_id' => $orderData['id'],
-            'order_id_response' => 9
+            'order_id_response' => $orderDataResponse['id']
         ]);
+
+
+        $saveOrderToDb->save();
 
         // TODO if enabled LOGGER
         $this->logger->info(
             'Successfully saved order data response from API in the database'
         );
-
-        $saveOrderToDb->save();
     }
 }

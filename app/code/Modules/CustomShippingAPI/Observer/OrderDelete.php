@@ -40,7 +40,7 @@ class OrderDelete implements ObserverInterface
     {
         $orderId = $orderObject->getId();
 
-        $order = $this->orderDataFactory
+        $order = $this->orderDataModelFactory
             ->create()
             ->load($orderId, 'order_id');
 

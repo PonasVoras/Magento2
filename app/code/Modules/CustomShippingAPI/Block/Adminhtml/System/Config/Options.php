@@ -21,7 +21,6 @@ class Options extends AbstractFieldArray
     {
         $this->addColumn('primary', ['label' => __('Primary'), 'renderer' => false]);
         $this->addColumn('result', ['label' => __('Result'), 'renderer' => false]);
-        //$this->addColumn('enable', ['label' => __('Free shipping'), 'renderer' => $this->checkboxRenderer]);
         $this->addColumn('enable', ['label' => __('Free shipping'), 'renderer' => $this->checkboxRenderer]);
 
         $this->_addAfter = false;
