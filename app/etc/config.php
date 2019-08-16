@@ -236,6 +236,7 @@ return [
         'Modules_Featured' => 1,
         'Modules_Popup' => 1,
         'Modules_Promo' => 1,
+        'Modules_Sold' => 1,
         'Temando_Shipping' => 1,
         'Vertex_Tax' => 1
     ]
