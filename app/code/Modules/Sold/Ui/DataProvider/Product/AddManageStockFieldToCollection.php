@@ -1,4 +1,6 @@
-<?php namespace Modules\Sold\Ui\DataProvider\Product;
+<?php
+
+namespace Modules\Sold\Ui\DataProvider\Product;
 
 use Magento\Framework\Data\Collection;
 use Magento\Ui\DataProvider\AddFieldToCollectionInterface;

@@ -1,4 +1,6 @@
-<?php namespace Modules\Sold\Logger;
+<?php
+
+namespace Modules\Sold\Logger;
 
 use Magento\Framework\Logger\Handler\Base;
 use Monolog\Logger;

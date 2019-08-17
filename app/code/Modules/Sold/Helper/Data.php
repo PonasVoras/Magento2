@@ -1,4 +1,6 @@
-<?php namespace Modules\Sold\Helper;
+<?php
+
+namespace Modules\Sold\Helper;
 
 use Magento\Framework\App\Helper\AbstractHelper;
 use Magento\Store\Model\ScopeInterface;
@@ -17,4 +19,3 @@ class Data extends AbstractHelper
         );
     }
 }
-

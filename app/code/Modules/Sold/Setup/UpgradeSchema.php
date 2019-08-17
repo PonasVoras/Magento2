@@ -1,4 +1,6 @@
-<?php namespace Modules\Sold\Setup;
+<?php
+
+namespace Modules\Sold\Setup;
 
 use Magento\Framework\DB\Ddl\Table;
 use Magento\Framework\Setup\ModuleContextInterface;
@@ -10,7 +12,8 @@ class UpgradeSchema implements UpgradeSchemaInterface
     public function upgrade(
         SchemaSetupInterface $setup,
         ModuleContextInterface $context
-    ) {
+    )
+    {
         $setup->startSetup();
         if (version_compare($context->getVersion(), '1.0.1') < 0) {
             $tableName = $setup->getTable('catalog_product_entity');
