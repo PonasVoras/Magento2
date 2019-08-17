@@ -26,6 +26,12 @@
                     <comment>Title of the column</comment>
                 </field>
 
+                <field id="timer" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="0"
+                       showInStore="0">
+                    <label>timer</label>
+                    <comment>Time interval in minutes for ordered updates</comment>
+                </field>
+
             </group>
         </section>
     </system>

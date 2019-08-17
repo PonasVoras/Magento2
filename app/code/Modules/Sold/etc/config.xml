@@ -6,6 +6,7 @@
             <column>
                 <enable>1</enable>
                 <title>Parameters</title>
+                <timer>1</timer>
             </column>
         </grid>
     </default>
