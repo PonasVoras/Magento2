@@ -7,7 +7,7 @@
                 <options class="Magento\Config\Model\Config\Source\Yesno"/>
                 <filter>select</filter>
                 <dataType>select</dataType>
-                <sortable>false</sortable>
+                <sortable>true</sortable>
                 <label translate="true">Sold</label>
             </settings>
         </column>
