@@ -5,6 +5,7 @@
         <grid>
             <column>
                 <enable>1</enable>
+                <logging>1</logging>
                 <title>Parameters</title>
                 <timer>1</timer>
             </column>

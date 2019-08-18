@@ -5,6 +5,7 @@
         <popup>
             <general>
                 <enable>1</enable>
+
                 <title>Popup Products</title>
                 <time>1</time>
             </general>
