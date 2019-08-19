@@ -26,8 +26,10 @@ class OrderedIncrement implements ObserverInterface
 
     public function execute(Observer $observer)
     {
-        $orderObject = $observer->getEvent()->getOrder();
-        $this->handleOrderData($orderObject);
+
+        $this->logger->logIfEnabled('Observer wont work');
+//        $orderObject = $observer->getEvent()->getOrder();
+//        $this->handleOrderData($orderObject);
     }
 
     private function handleOrderData($orderObject)
