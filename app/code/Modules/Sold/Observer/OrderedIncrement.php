@@ -36,9 +36,8 @@ class OrderedIncrement implements ObserverInterface
         $this->logger->logIfEnabled('Observer noticed activity');
 
         foreach ($allItems as $item) {
-            $id = $item->getId();
             $sku = $item->getSku();
-            $this->databaseModel->handleOrderedItem($id, $sku);
+            $this->databaseModel->handleOrderedItem($sku);
         }
     }
 }

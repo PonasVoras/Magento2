@@ -19,10 +19,10 @@ class ModelHelper
         $this->orderedFactory = $orderedFactory;
     }
 
-    public function handleOrderedItem(string $id, string $sku)
+    public function handleOrderedItem(string $sku)
     {
         $this->model = $this->orderedFactory->create();
-        $incrementSimple = $this->incrementSimpleProductQuantity($id);
+        $incrementSimple = $this->incrementSimpleProductQuantity($sku);
         $incrementConfigurable = 'Item is not configurable';
         if ($this->isConfigurable($sku)) {
             $incrementConfigurable = $this->incrementConfigurableProductQuantity($sku);
@@ -31,15 +31,15 @@ class ModelHelper
         $this->logger->logIfEnabled($incrementConfigurable);
     }
 
-    public function incrementSimpleProductQuantity(string $id): string
+    public function incrementSimpleProductQuantity(string $sku): string
     {
         $quantity = $this->model
-            ->load($id)
+            ->load($sku, 'sku')
             ->getData('sold_quantity');
         $this->logger->logIfEnabled('Quantity simple :' . $quantity);
         $quantity++;
         $newQuantity = $this->model
-            ->load($id)
+            ->load($sku, 'sku')
             ->addData([
                 'sold_quantity' => $quantity
             ]);
