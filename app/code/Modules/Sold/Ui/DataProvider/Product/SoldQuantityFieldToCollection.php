@@ -5,7 +5,7 @@ namespace Modules\Sold\Ui\DataProvider\Product;
 use Magento\Framework\Data\Collection;
 use Magento\Ui\DataProvider\AddFieldToCollectionInterface;
 
-class AddManageStockFieldToCollection implements AddFieldToCollectionInterface
+class SoldQuantityFieldToCollection implements AddFieldToCollectionInterface
 {
     public function addField(Collection $collection, $field, $alias = null)
     {

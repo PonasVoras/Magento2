@@ -3,10 +3,10 @@
     <type name="Magento\Catalog\Ui\DataProvider\Product\ProductDataProvider">
         <arguments>
             <argument name="addFieldStrategies" xsi:type="array">
-                <item name="manage_stock" xsi:type="object">Modules\Sold\Ui\DataProvider\Product\AddManageStockFieldToCollection</item>
+                <item name="sold_quantity" xsi:type="object">Modules\Sold\Ui\DataProvider\Product\SoldQuantityFieldToCollection</item>
             </argument>
             <argument name="addFilterStrategies" xsi:type="array">
-                <item name="manage_stock" xsi:type="object">Modules\Sold\Ui\DataProvider\Product\AddManageStockFilterToCollection</item>
+                <item name="sold_quantity" xsi:type="object">Modules\Sold\Ui\DataProvider\Product\SoldQuantityFilterToCollection</item>
             </argument>
         </arguments>
     </type>
