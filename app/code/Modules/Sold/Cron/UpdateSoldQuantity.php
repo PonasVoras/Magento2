@@ -40,20 +40,16 @@ class UpdateSoldQuantity
         $searchCriteria = $this->searchCriteriaBuilder
             ->addFilter(
                 'status',
-                'pending',
-                'eq'
+                'canceled',
+                'neq'
             )->create();
         $orders = $this->orderRepository->getList($searchCriteria);
         foreach ($orders->getItems() as $order) {
+            $this->cleanOrderedColumn($order);
+        }
+        foreach ($orders->getItems() as $order) {
             $this->handleOrderData($order);
         }
-    }
-
-    public function isOrderNotCanceled($orderObject)
-    {
-        $orderState = $orderObject->getState();
-        $outcome = ($orderState !== 'canceled') ?? true;
-        return $outcome;
     }
 
     private function handleOrderData($orderObject)
@@ -63,6 +59,15 @@ class UpdateSoldQuantity
             $sku = $item->getSku();
             $this->logger->logIfEnabled('Cron retrieved sku :' . $sku);
             $this->databaseModel->handleOrderedItem($sku);
+        }
+    }
+
+    private function cleanOrderedColumn($orderObject)
+    {
+        $allItems = $orderObject->getAllItems();
+        foreach ($allItems as $item) {
+            $sku = $item->getSku();
+            $this->databaseModel->resetOrderedCount($sku);
         }
     }
 }

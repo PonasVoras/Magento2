@@ -13,10 +13,30 @@ class ModelHelper
     public function __construct(
         OrderedFactory $orderedFactory,
         LoggerHelper $logger
-    )
-    {
+    ) {
         $this->logger = $logger;
         $this->orderedFactory = $orderedFactory;
+    }
+
+
+    public function resetOrderedCount(string $sku)
+    {
+        $this->model = $this->orderedFactory->create();
+        if ($this->isConfigurable($sku)) {
+            $configurableSku = explode('-', $sku);
+            $configurableSku = $configurableSku[0];
+            $eraseConfigurable = $this->model
+                ->load($configurableSku, 'sku')
+                ->addData([ 'sold_quantity' => null
+                ]);
+            $eraseConfigurable->save();
+        }
+        $eraseSimple = $this->model
+            ->load($sku, 'sku')
+            ->addData([
+                'sold_quantity' => null
+            ]);
+        $eraseSimple->save();
     }
 
     public function handleOrderedItem(string $sku)
