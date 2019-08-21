@@ -9,93 +9,73 @@ class ModelHelperTest
     private $logger;
     private $orderedFactory;
     private $orderModel;
+
     public function __construct(
         OrderedFactory $orderedFactory,
         LoggerHelper $logger
-    ) {
+    )
+    {
         $this->logger = $logger;
         $this->orderedFactory = $orderedFactory;
         $this->orderModel = $this->orderedFactory->create();
     }
+
     public function resetOrderedCount(string $sku)
     {
-
-        if ($this->isConfigurable($sku)) {
-            $configurableSku = explode('-', $sku);
-            $configurableSku = $configurableSku[0];
-            $eraseConfigurable = $this->orderModel
-                ->load($configurableSku, 'sku')
-                ->addData([ 'sold_quantity' => null
-                ]);
-            $eraseConfigurable->save();
+        $configurableSku = $this->getConfigurableSku($sku);
+        if (!empty($configurableSku)) {
+            $this->orderModelAddQuantity($configurableSku);
         }
-        $eraseSimple = $this->orderModel
+        $this->orderModelAddQuantity($sku);
+    }
+
+    public function orderModelAddQuantity(string $sku, bool $increment = false): void
+    {
+        $quantity = null;
+        if ($increment) {
+            $quantity = $this->orderModel
+                ->load($sku, 'sku')
+                ->getData('sold_quantity');
+            $quantity++;
+        }
+
+        $newQuantity = $this->orderModel
             ->load($sku, 'sku')
             ->addData([
-                'sold_quantity' => null
+                'sold_quantity' => $quantity
             ]);
-        $eraseSimple->save();
+        $savedNewQuantity = $newQuantity->save();
+        if ($savedNewQuantity) {
+            $this->logger->logIfEnabled('Quantity' . $sku . 'saved successfully');
+        }
     }
+
     public function handleOrderedItem(string $sku)
     {
-        $incrementSimple = $this->incrementSimpleProductQuantity($sku);
-        $incrementConfigurable = 'Item is not configurable';
-        if ($this->isConfigurable($sku)) {
-            $incrementConfigurable = $this->incrementConfigurableProductQuantity($sku);
+        $this->incrementSimpleProductQuantity($sku);
+        $configurableSku = $this->getConfigurableSku($sku);
+        if (!empty($configurableSku)) {
+            $this->incrementConfigurableProductQuantity($configurableSku);
         }
-        $this->logger->logIfEnabled($incrementSimple);
-        $this->logger->logIfEnabled($incrementConfigurable);
     }
+
     public function incrementSimpleProductQuantity(string $sku): string
     {
-        $quantity = $this->orderModel
-            ->load($sku, 'sku')
-            ->getData('sold_quantity');
-        $this->logger->logIfEnabled('Quantity simple :' . $quantity);
-        $quantity++;
-        $newQuantity = $this->orderModel
-            ->load($sku, 'sku')
-            ->addData([
-                'sold_quantity' => $quantity
-            ]);
-        $saveNewQuantity = $newQuantity->save();
-        if ($saveNewQuantity) {
-            $outcome = 'Saved successfully';
-        } else {
-            $outcome = 'Eh, there were some problems';
-        }
-        return $outcome;
+        $this->orderModelAddQuantity($sku, true);
     }
-    public function isConfigurable(string $sku)
+
+    public function incrementConfigurableProductQuantity(string $configurableSku)
     {
-        $sku = explode('-', $sku);
-        $sku = $sku[0];
-        $type = $this->orderModel
-            ->load($sku, 'sku')
-            ->getData('type_id');
-        $outcome = ($type == 'configurable') ?? true;
-        return $outcome;
+        $this->orderModelAddQuantity($configurableSku, true);
     }
-    public function incrementConfigurableProductQuantity(string $simpleSku)
+
+    public function getConfigurableSku(string $sku): string
     {
-        $configurableSku = explode('-', $simpleSku);
+        $configurableSku = explode('-', $sku);
         $configurableSku = $configurableSku[0];
-        $quantity = $this->orderModel
+        $configurableSku = $this->orderModel
             ->load($configurableSku, 'sku')
-            ->getData('sold_quantity');
-        $this->logger->logIfEnabled('Quantity configurebale :' . $quantity);
-        $quantity++;
-        $newQuantity = $this->orderModel
-            ->load($configurableSku, 'sku')
-            ->addData([
-                'sold_quantity' => $quantity
-            ]);
-        $saveNewQuantity = $newQuantity->save();
-        if ($saveNewQuantity) {
-            $outcome = 'Saved successfully';
-        } else {
-            $outcome = 'Eh, there were some problems';
-        }
-        return $outcome;
+            ->getData('type_id');
+        return $configurableSku;
     }
 }
