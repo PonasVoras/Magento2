@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <listing xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
-    <columns name="product_columns">
-        <column name="sold_quantity" component="Magento_Ui/js/grid/columns/select" sortOrder="76">
+    <columns name="product_columns" class="Magento\Catalog\Ui\Component\Listing\Columns">
+        <column name="sold_quantity" sortOrder="76">
             <settings>
                 <addField>true</addField>
                 <filter>text</filter>
                 <dataType>text</dataType>
                 <sortable>true</sortable>
-                <label translate="true">Sold</label>
+                <label translate="true">Sold quantity</label>
             </settings>
         </column>
     </columns>

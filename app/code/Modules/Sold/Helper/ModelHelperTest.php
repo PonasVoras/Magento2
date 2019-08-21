@@ -2,32 +2,30 @@
 
 namespace Modules\Sold\Helper;
 
-use Modules\Sold\Model\OrderedFactory;
+use Modules\Sold\Model\ResourceModel\OrderedFactory;
 
-class ModelHelper
+class ModelHelperTest
 {
     private $logger;
     private $orderedFactory;
     private $orderModel;
-
     public function __construct(
         OrderedFactory $orderedFactory,
         LoggerHelper $logger
-    )
-    {
+    ) {
         $this->logger = $logger;
         $this->orderedFactory = $orderedFactory;
+        $this->orderModel = $this->orderedFactory->create();
     }
-
     public function resetOrderedCount(string $sku)
     {
-        $this->orderModel = $this->orderedFactory->create();
+
         if ($this->isConfigurable($sku)) {
             $configurableSku = explode('-', $sku);
             $configurableSku = $configurableSku[0];
             $eraseConfigurable = $this->orderModel
                 ->load($configurableSku, 'sku')
-                ->addData(['sold_quantity' => null
+                ->addData([ 'sold_quantity' => null
                 ]);
             $eraseConfigurable->save();
         }
@@ -38,10 +36,8 @@ class ModelHelper
             ]);
         $eraseSimple->save();
     }
-
     public function handleOrderedItem(string $sku)
     {
-        $this->orderModel = $this->orderedFactory->create();
         $incrementSimple = $this->incrementSimpleProductQuantity($sku);
         $incrementConfigurable = 'Item is not configurable';
         if ($this->isConfigurable($sku)) {
@@ -50,7 +46,6 @@ class ModelHelper
         $this->logger->logIfEnabled($incrementSimple);
         $this->logger->logIfEnabled($incrementConfigurable);
     }
-
     public function incrementSimpleProductQuantity(string $sku): string
     {
         $quantity = $this->orderModel
@@ -71,7 +66,6 @@ class ModelHelper
         }
         return $outcome;
     }
-
     public function isConfigurable(string $sku)
     {
         $sku = explode('-', $sku);
@@ -82,7 +76,6 @@ class ModelHelper
         $outcome = ($type == 'configurable') ?? true;
         return $outcome;
     }
-
     public function incrementConfigurableProductQuantity(string $simpleSku)
     {
         $configurableSku = explode('-', $simpleSku);
