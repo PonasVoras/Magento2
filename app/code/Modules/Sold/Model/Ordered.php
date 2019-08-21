@@ -16,7 +16,7 @@ class Ordered extends AbstractModel implements IdentityInterface
 
     protected function _construct()
     {
-        $this->_init(ResourceModel\Ordered::class);
+        $this->_init(ResourceModel\OrderedResourceModel::class);
     }
 
     public function getIdentities()
