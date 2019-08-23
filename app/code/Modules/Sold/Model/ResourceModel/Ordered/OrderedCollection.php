@@ -14,7 +14,7 @@ class OrderedCollection extends AbstractCollection
 
     protected function _construct()
     {
-        $this->_init(Model\Ordered::class, ResourceModel\OrderedResourceModel::class);
+        $this->_init(Model\OrderedModel::class, ResourceModel\OrderedResourceModel::class);
     }
 
 }

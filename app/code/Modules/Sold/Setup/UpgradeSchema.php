@@ -12,8 +12,7 @@ class UpgradeSchema implements UpgradeSchemaInterface
     public function upgrade(
         SchemaSetupInterface $setup,
         ModuleContextInterface $context
-    )
-    {
+    ) {
         $setup->startSetup();
         if (version_compare($context->getVersion(), '1.0.1') < 0) {
             $tableName = $setup->getTable('catalog_product_entity');

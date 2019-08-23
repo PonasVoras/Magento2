@@ -1,6 +1,7 @@
 <?php
 namespace Modules\Sold\Helper;
 
+use Modules\Sold\Model\OrderedModelFactory;
 use Modules\Sold\Model\ResourceModel\OrderedResourceModelFactory;
 use Modules\Sold\Model\ResourceModel\Ordered\OrderedCollectionFactory;
 

@@ -5,9 +5,6 @@
             <argument name="addFieldStrategies" xsi:type="array">
                 <item name="sold_quantity" xsi:type="object">Modules\Sold\Ui\DataProvider\Product\SoldQuantityField</item>
             </argument>
-            <argument name="addFilterStrategies" xsi:type="array">
-                <item name="sold_quantity" xsi:type="object">Modules\Sold\Ui\DataProvider\Product\SoldQuantityFilter</item>
-            </argument>
         </arguments>
     </type>
 </config>

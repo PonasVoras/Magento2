@@ -6,7 +6,7 @@ use Magento\Framework\DataObject\IdentityInterface;
 use Magento\Framework\Model\AbstractModel;
 use Modules\Sold\Model\ResourceModel;
 
-class Ordered extends AbstractModel implements IdentityInterface
+class OrderedModel extends AbstractModel implements IdentityInterface
 {
     const CACHE_TAG = 'modules_sold_ordered';
 
